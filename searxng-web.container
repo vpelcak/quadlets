@@ -1,0 +1,24 @@
+[Unit]
+Description=searxng
+Requires=searxng-valkey.service
+After=network-online.target
+
+[Container]
+Pod=searxng.pod
+ContainerName=searxngweb
+Image=docker.io/searxng/searxng:latest
+AutoUpdate=registry
+EnvironmentFile=%h/apps/searxng/.env
+
+Volume=%h/apps/searxng:/etc/searxng:z
+
+Environment=SEARXNG_BASE_URL=${BASE_URL}
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

@@ -1,0 +1,5 @@
+[Pod]
+Network=podman
+IP=10.88.0.17
+PodName=paperless
+PublishPort=8040:8000

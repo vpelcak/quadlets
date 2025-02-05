@@ -1,0 +1,25 @@
+[Unit]
+Description=Ntfy.sh
+After=network-online.target
+
+[Container]
+ContainerName=Ntfy
+Image=docker.io/binwiederhier/ntfy
+AutoUpdate=registry
+Exec=serve
+
+Network=podman
+IP=10.88.0.7
+HostName=ntfy
+PublishPort=8000:80
+Volume=%h/apps/ntfy/etc:/etc/ntfy:z
+Volume=%h/apps/ntfy/cache:/var/cache/ntfy:z
+Volume=%h/apps/ntfy/db:/var/lib/ntfy:z
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

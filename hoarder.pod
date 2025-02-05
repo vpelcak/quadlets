@@ -1,0 +1,5 @@
+[Pod]
+Network=podman
+IP=10.88.0.29
+PodName=hoarder
+PublishPort=3005:3000

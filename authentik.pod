@@ -1,0 +1,6 @@
+[Pod]
+Network=podman
+IP=10.88.0.9
+PodName=authentik
+PublishPort=9000:9000
+PublishPort=9443:9443

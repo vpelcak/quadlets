@@ -1,0 +1,24 @@
+[Unit]
+Description=Immich server
+Requires=immich-redis.service immich-database.service
+After=network-online.target
+
+[Container]
+Pod=immich.pod
+ContainerName=immich-server
+Image=ghcr.io/immich-app/immich-server:release
+EnvironmentFile=%h/apps/immich/.env
+#AutoUpdate=registry
+
+Volume=%h/SSD/Pictures/Library:/usr/src/app/upload:z
+Volume=/etc/localtime:/etc/localtime:ro
+
+Timezone=Europe/Prague
+
+[Service]
+#EnvironmentFile=%h/apps/immich/.env
+ExecStartPre=sleep 15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

@@ -1,0 +1,5 @@
+[Pod]
+Network=podman
+IP=10.88.0.18
+PodName=searxng
+PublishPort=8888:8080

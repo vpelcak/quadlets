@@ -1,0 +1,17 @@
+[Unit]
+Description=Paperless Tika
+After=network-online.target
+
+[Container]
+Pod=paperless.pod
+ContainerName=paperless-tika
+Image=docker.io/apache/tika:latest
+AutoUpdate=registry
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

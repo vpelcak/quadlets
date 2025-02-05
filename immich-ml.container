@@ -1,0 +1,26 @@
+[Unit]
+Description=Immich Machine Learning
+Requires=immich-redis.service immich-database.service
+After=network-online.target
+
+[Container]
+Pod=immich.pod
+ContainerName=immich-machine-learning
+Image=ghcr.io/immich-app/immich-machine-learning:release
+EnvironmentFile=%h/apps/immich/.env
+#AutoUpdate=registry
+
+Volume=model-cache:/cache:z
+HealthCmd=["/bin/bash", "-c", "exec 5<>/dev/tcp/127.0.0.1/3003"]
+HealthStartPeriod=30s
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
+Notify=healthy
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

@@ -1,0 +1,31 @@
+[Unit]
+Description=Immich Power tools
+Requires=immich-pod.service
+After=network-online.target
+
+[Container]
+ContainerName=immich-power-tools
+Image=ghcr.io/varun-raj/immich-power-tools:latest
+EnvironmentFile=%h/apps/immich/.env
+AutoUpdate=registry
+
+Environment=DB_HOST=${IMMICH_DB_HOST} # Postgres Host (IP address or hostname of the database)
+Environment=DB_PORT=IMMICH_DB_PORT # Postgres Port number (Default: 5432)
+
+Environment=IMMICH_API_KEY=${IMMICH_API_KEY}
+Environment=IMMICH_URL=${IMMICH_URL}
+
+Environment=EXTERNAL_IMMICH_URL=${EXTERNAL_IMMICH_URL}
+
+Network=podman
+IP=10.88.0.12
+PublishPort=8005:3000
+
+Timezone=Europe/Prague
+
+[Service]
+EnvironmentFile=%h/apps/immich/.env
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

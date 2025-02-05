@@ -1,0 +1,38 @@
+[Unit]
+Description=Authentik Server
+Requires=authentik-redis.service authentik-db.service
+After=network-online.target
+
+[Container]
+Pod=authentik.pod
+ContainerName=authentik-server
+Image=ghcr.io/goauthentik/server:2024.12.3
+EnvironmentFile=%h/apps/authentik/.env
+AutoUpdate=registry
+
+Exec=server
+
+Environment=AUTHENTIK_REDIS__HOST=0.0.0.0
+Environment=AUTHENTIK_POSTGRESQL__HOST=0.0.0.0
+Environment=AUTHENTIK_REDIS__PORT=6379
+Environment=AUTHENTIK_POSTGRESQL__PORT=5432
+Environment=AUTHENTIK_POSTGRESQL__USER=${AUTHENTIK_POSTGRES_USER}
+Environment=AUTHENTIK_POSTGRESQL__NAME=${AUTHENTIK_POSTGRES_DB}
+Environment=AUTHENTIK_POSTGRESQL__PASSWORD=${AUTHENTIK_PG_PASS}
+
+Environment=PUID=1000
+Environment=PGID=1000
+
+Volume=%h/apps/authentik/media:/media:z
+Volume=%h/apps/authentik/templates:/templates:z
+
+Timezone=Europe/Prague
+
+[Service]
+EnvironmentFile=%h/apps/authentik/.env
+#Volume=/etc/localtime:/etc/localtime:ro
+#ExecStartPre=sleep 15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

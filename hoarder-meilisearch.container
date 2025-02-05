@@ -1,0 +1,25 @@
+[Unit]
+Description=hoarder
+Requires=hoarder-web.service
+After=network-online.target
+
+[Container]
+Pod=hoarder.pod
+ContainerName=hoarder-meilisearch
+Image=docker.io/getmeili/meilisearch:v1.11.1
+AutoUpdate=registry
+
+EnvironmentFile==%h/apps/hoarder/.env
+
+Volume=%h/apps/hoarder/meilisearch:/meili_data:z
+
+Environment=MEILI_NO_ANALYTICS=true
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

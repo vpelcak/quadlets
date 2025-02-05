@@ -1,0 +1,25 @@
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+ContainerName=prometheus
+Image=docker.io/prom/prometheus
+PublishPort=9095:9090
+Volume=%h/apps/prometheus/config:/etc/prometheus:Z
+Volume=prometheus-data:/prometheus
+AutoUpdate=registry
+Network=podman
+IP=10.88.0.4
+
+#Environment=PUID=1000
+#Environment=PGID=1000
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

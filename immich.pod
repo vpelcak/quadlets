@@ -1,0 +1,6 @@
+[Pod]
+Network=podman
+IP=10.88.0.11
+PodName=immich
+PublishPort=2283:2283
+PublishPort=5432:5432

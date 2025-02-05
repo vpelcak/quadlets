@@ -1,0 +1,31 @@
+[Unit]
+Description=Vikunja App
+Requires=vikunja-db.service
+After=network-online.target
+
+[Container]
+Pod=vikunja.pod
+ContainerName=vikunja-app
+Image=docker.io/vikunja/vikunja
+AutoUpdate=registry
+EnvironmentFile=%h/apps/vikunja/.env
+
+Volume=%h/apps/vikunja/files:/app/vikunja/files:z
+Volume=%h/apps/vikunja/config.yml:/etc/vikunja/config.yml:z
+
+Environment=VIKUNJA_SERVICE_PUBLICURL=${VIKUNJA_PUBLICURL}
+Environment=VIKUNJA_DATABASE_HOST=${DATABASE_HOST}
+Environment=VIKUNJA_DATABASE_PASSWORD=${DATABASE_PASSWORD}
+Environment=VIKUNJA_DATABASE_TYPE=${DATABASE_TYPE}
+Environment=VIKUNJA_DATABASE_USER=${DATABASE_USER}
+Environment=VIKUNJA_DATABASE_DATABASE=${DATABASE_DATABASE}
+#Environment=VIKUNJA_SERVICE_JWTSECRET: <a super secure random secret>
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

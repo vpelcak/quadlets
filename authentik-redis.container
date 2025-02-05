@@ -1,0 +1,30 @@
+[Unit]
+Description=Authentik Redis
+After=network-online.target
+
+[Container]
+Pod=authentik.pod
+ContainerName=authentik-redis
+Image=docker.io/library/redis:alpine
+AutoUpdate=registry
+
+Exec=--save 60 1 --loglevel warning
+
+HealthCmd=["/usr/local/bin/redis-cli", "ping"]
+HealthStartPeriod=30s
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
+Notify=healthy
+
+Volume=%h/apps/authentik/redis/data:/data:Z
+
+Timezone=Europe/Prague
+
+[Service]
+EnvironmentFile=%h/apps/authentik/.env
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

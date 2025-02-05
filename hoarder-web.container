@@ -1,0 +1,26 @@
+[Unit]
+Description=hoarder
+After=network-online.target
+
+[Container]
+Pod=hoarder.pod
+ContainerName=hoarder-web
+Image=ghcr.io/hoarder-app/hoarder:release
+AutoUpdate=registry
+
+EnvironmentFile=%h/apps/hoarder/.env
+
+Volume=%h/apps/hoarder/data:/data:z
+
+Environment=MEILI_ADDR=http://10.88.0.29:7700
+Environment=BROWSER_WEB_URL=http://10.88.0.29:9222
+Environment=DATA_DIR=/data
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

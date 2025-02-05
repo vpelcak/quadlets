@@ -1,0 +1,27 @@
+[Unit]
+Description=Grocy
+After=network-online.target
+
+[Container]
+ContainerName=grocy
+Image=lscr.io/linuxserver/grocy:latest
+AutoUpdate=registry
+
+Environment=PUID=1000
+Environment=PGID=1000
+
+Network=podman
+IP=10.88.0.31
+
+HostName=grocy
+
+PublishPort=9283:80
+Volume=%h/apps/grocy/config:/config:z
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

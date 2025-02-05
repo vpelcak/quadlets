@@ -1,0 +1,33 @@
+[Unit]
+Description=Immich Database
+Requires=immich-redis.service
+After=network-online.target
+
+[Container]
+Pod=immich.pod
+ContainerName=immich-database
+Image=docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
+Exec=postgres -c shared_preload_libraries=vectors.so -c 'search_path="$$user", public, vectors' -c logging_collector=on -c max_wal_size=2GB -c shared_buffers=512MB -c wal_compression=on
+AutoUpdate=registry
+EnvironmentFile=%h/apps/immich/.env
+
+Environment=POSTGRES_PASSWORD: ${IMMICH_DB_PASSWORD}
+Environment=POSTGRES_USER: ${IMMICH_DB_USERNAME}
+Environment=POSTGRES_DB: ${DB_DATABASE_NAME}
+Environment=POSTGRES_INITDB_ARGS: '--data-checksums'
+
+Volume=/etc/localtime:/etc/localtime:ro
+
+HealthCmd=pg_isready --dbname='${DB_DATABASE_NAME}' --username='${DB_USERNAME}' || exit 1; Chksum="$$(psql --dbname='${DB_DATABASE_NAME}' --username='${DB_USERNAME}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
+
+Volume=${DB_DATA_LOCATION}:/var/lib/postgresql/data:z
+
+Timezone=Europe/Prague
+
+[Service]
+EnvironmentFile=%h/apps/immich/.env
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

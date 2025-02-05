@@ -1,0 +1,33 @@
+[Unit]
+Description=Paperless Webserver
+Requires=paperless-broker.service paperless-db.service
+After=network-online.target
+
+[Container]
+Pod=paperless.pod
+ContainerName=paperless-webserver
+Image=ghcr.io/paperless-ngx/paperless-ngx:latest
+EnvironmentFile=%h/apps/paperless/.env
+AutoUpdate=registry
+
+Volume=%h/apps/paperless/data:/usr/src/paperless/data:z
+Volume=%h/apps/paperless/media:/usr/src/paperless/media:z
+Volume=%h/apps/paperless/export:/usr/src/paperless/export:z
+Volume=%h/apps/paperless/consume:/usr/src/paperless/consume:z
+
+Timezone=Europe/Prague
+
+Environment=PAPERLESS_REDIS=redis://10.88.0.17
+Environment=PAPERLESS_DBHOST=10.88.0.17
+Environment=PAPERLESS_TIKA_ENABLED=1
+Environment=PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3000
+Environment=PAPERLESS_TIKA_ENDPOINT=http://tika:9998
+
+[Service]
+EnvironmentFile=%h/apps/paperless/.env
+Volume=/etc/localtime:/etc/localtime:ro
+ExecStartPre=sleep 15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

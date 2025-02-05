@@ -1,0 +1,25 @@
+[Unit]
+Description=Home Assistent
+After=network-online.target
+
+[Container]
+ContainerName=homeassistent
+Image=lscr.io/linuxserver/homeassistant:latest
+AutoUpdate=registry
+
+Network=podman
+IP=10.88.0.25
+HostName=backrest
+PublishPort=8123:8123
+Volume=%h/apps/homeassistent/data:/config:z
+
+Environment=PUID=1000
+Environment=PGID=1000
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

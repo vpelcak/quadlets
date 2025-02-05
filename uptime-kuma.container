@@ -1,0 +1,25 @@
+[Unit]
+Description=Uptime-Kuma server
+After=network-online.target
+
+[Container]
+ContainerName=uptime-kuma
+Image=docker.io/louislam/uptime-kuma:1
+AutoUpdate=registry
+
+HealthCmd=curl http://127.0.0.1:3001
+
+Network=podman
+IP=10.88.0.6
+HostName=uptime
+PublishPort=3001:3001
+Volume=%h/apps/uptime-kuma:/app/data:Z
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

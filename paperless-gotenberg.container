@@ -1,0 +1,18 @@
+[Unit]
+Description=Paperless Gotenberg
+Requires=paperless-broker.service paperless-db.service
+After=network-online.target
+
+[Container]
+Pod=paperless.pod
+ContainerName=paperless-gotenberg
+Image=docker.io/thecodingmachine/gotenberg:8
+EnvironmentFile=%h/apps/paperless/.env
+Exec=gotenberg --chromium-disable-javascript=true --chromium-allow-list=file:///tmp/.*
+AutoUpdate=registry
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

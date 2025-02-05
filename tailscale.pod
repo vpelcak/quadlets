@@ -1,0 +1,7 @@
+[Pod]
+Network=podman
+IP=10.88.0.19
+PodName=tailscale-proxy
+PublishPort=80:80
+PublishPort=81:81
+PublishPort=443:443

@@ -1,0 +1,27 @@
+[Unit]
+Description=Immich Redis
+After=network-online.target
+
+[Container]
+Pod=immich.pod
+ContainerName=immich-redis
+Image=docker.io/redis:6.2-alpine@sha256:eaba718fecd1196d88533de7ba49bf903ad33664a92debb24660a922ecd9cac8
+AutoUpdate=registry
+
+HealthCmd=["/usr/local/bin/redis-cli", "ping"]
+HealthStartPeriod=30s
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
+Notify=healthy
+
+Volume=%h/apps/immich/redis:/data:Z
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

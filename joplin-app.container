@@ -1,0 +1,30 @@
+[Unit]
+Description=Joplin App
+Requires=joplin-db.service
+After=network-online.target
+
+[Container]
+Pod=joplin.pod
+ContainerName=joplin-app
+Image=docker.io/joplin/server:latest
+AutoUpdate=registry
+EnvironmentFile=%h/apps/joplin/.env
+
+Environment=APP_PORT=${JOPLIN_APP_PORT}
+Environment=APP_BASE_URL=${JOPLIN_APP_BASE_URL}
+Environment=DB_CLIENT=0.0.0.0
+Environment=POSTGRES_PASSWORD=${JOPLIN_POSTGRES_PASSWORD}
+Environment=POSTGRES_DATABASE=${JOPLIN_POSTGRES_DATABASE}
+Environment=POSTGRES_USER=${JOPLIN_POSTGRES_USER}
+Environment=POSTGRES_PORT=${JOPLIN_POSTGRES_PORT}
+Environment=POSTGRES_HOST=${JOPLIN_POSTGRES_HOST}
+
+Timezone=Europe/Prague
+
+[Service]
+EnvironmentFile=%h/apps/joplin/.env
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

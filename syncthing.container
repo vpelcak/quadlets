@@ -1,0 +1,37 @@
+[Unit]
+Description=File synchronization tool
+Wants=network-online.target
+After=network-online.target
+After=local-fs.target
+
+[Container]
+ContainerName=syncthing
+
+Image=lscr.io/linuxserver/syncthing
+AutoUpdate=registry
+
+Volume=%h/apps/syncthing/config:/config:Z
+Volume=%h/apps/syncthing/obsidian:/ob-path:Z
+
+PublishPort=8384:8384
+PublishPort=22000:22000/tcp
+PublishPort=22000:22000/udp
+PublishPort=21027:21027/udp
+
+#UIDMap=0:1000:1
+
+Network=podman
+IP=10.88.0.30
+
+Label=homepage.group=Automation
+Label=homepage.name=Syncthing
+Label=homepage.icon=syncthing.png
+Label=homepage.href=http://10.0.0.3:8384
+Label=homepage.description=File synchronization tool
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
