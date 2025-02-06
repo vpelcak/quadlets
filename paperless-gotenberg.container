@@ -8,6 +8,7 @@ Pod=paperless.pod
 ContainerName=paperless-gotenberg
 Image=docker.io/thecodingmachine/gotenberg:8
 EnvironmentFile=%h/apps/paperless/.env
+
 Exec=gotenberg --chromium-disable-javascript=true --chromium-allow-list=file:///tmp/.*
 AutoUpdate=registry
 
