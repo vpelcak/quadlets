@@ -17,11 +17,11 @@ Volume=%h/apps/paperless/consume:/usr/src/paperless/consume:z
 
 Timezone=Europe/Prague
 
-Environment=PAPERLESS_REDIS=redis://10.88.0.17
-Environment=PAPERLESS_DBHOST=10.88.0.17
+Environment=PAPERLESS_REDIS=redis://${PAPERLESS_INTERNAL_HOST}
+Environment=PAPERLESS_DBHOST=${PAPERLESS_INTERNAL_HOST}
 Environment=PAPERLESS_TIKA_ENABLED=1
-Environment=PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3000
-Environment=PAPERLESS_TIKA_ENDPOINT=http://tika:9998
+Environment=PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://${PAPERLESS_INTERNAL_HOST}:3000
+Environment=PAPERLESS_TIKA_ENDPOINT=http://${PAPERLESS_INTERNAL_HOST}:9998
 
 [Service]
 EnvironmentFile=%h/apps/paperless/.env
