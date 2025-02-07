@@ -7,7 +7,7 @@ Pod=joplin.pod
 ContainerName=joplin-db
 Image=docker.io/postgres:16
 AutoUpdate=registry
-EnvironmentFile=%h/apps/joplin/.env
+EnvironmentFile=%h/apps/joplin/joplin.env
 
 Environment=POSTGRES_PASSWORD=${JOPLIN_POSTGRES_PASSWORD}
 Environment=POSTGRES_USER=${JOPLIN_POSTGRES_USER}
@@ -20,7 +20,7 @@ Volume=%h/apps/joplin/db:/var/lib/postgresql/data:z
 Timezone=Europe/Prague
 
 [Service]
-EnvironmentFile=%h/apps/joplin/.env
+EnvironmentFile=%h/apps/joplin/joplin.env
 Restart=always
 TimeoutStartSec=300
 

@@ -7,7 +7,7 @@ After=network-online.target
 Pod=immich.pod
 ContainerName=immich-machine-learning
 Image=ghcr.io/immich-app/immich-machine-learning:release
-EnvironmentFile=%h/apps/immich/.env
+EnvironmentFile=%h/apps/immich/immich.env
 #AutoUpdate=registry
 
 Volume=model-cache:/cache:z

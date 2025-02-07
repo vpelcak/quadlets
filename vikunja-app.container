@@ -8,7 +8,7 @@ Pod=vikunja.pod
 ContainerName=vikunja-app
 Image=docker.io/vikunja/vikunja
 AutoUpdate=registry
-EnvironmentFile=%h/apps/vikunja/.env
+EnvironmentFile=%h/apps/vikunja/vikunja.env
 
 Volume=%h/apps/vikunja/files:/app/vikunja/files:z
 Volume=%h/apps/vikunja/config.yml:/etc/vikunja/config.yml:z

@@ -22,7 +22,7 @@ Volume=%h/apps/authentik/redis/data:/data:Z
 Timezone=Europe/Prague
 
 [Service]
-EnvironmentFile=%h/apps/authentik/.env
+EnvironmentFile=%h/apps/authentik/authentik.env
 Restart=always
 TimeoutStartSec=300
 

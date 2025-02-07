@@ -9,7 +9,7 @@ ContainerName=immich-database
 Image=docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
 Exec=postgres -c shared_preload_libraries=vectors.so -c 'search_path="$$user", public, vectors' -c logging_collector=on -c max_wal_size=2GB -c shared_buffers=512MB -c wal_compression=on
 AutoUpdate=registry
-EnvironmentFile=%h/apps/immich/.env
+EnvironmentFile=%h/apps/immich/immich.env
 
 Environment=POSTGRES_PASSWORD: ${IMMICH_DB_PASSWORD}
 Environment=POSTGRES_USER: ${IMMICH_DB_USERNAME}
@@ -25,7 +25,7 @@ Volume=${DB_DATA_LOCATION}:/var/lib/postgresql/data:z
 Timezone=Europe/Prague
 
 [Service]
-EnvironmentFile=%h/apps/immich/.env
+EnvironmentFile=%h/apps/immich/immich.env
 Restart=always
 TimeoutStartSec=300
 

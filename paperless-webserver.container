@@ -7,7 +7,7 @@ After=network-online.target
 Pod=paperless.pod
 ContainerName=paperless-webserver
 Image=ghcr.io/paperless-ngx/paperless-ngx:latest
-EnvironmentFile=%h/apps/paperless/.env
+EnvironmentFile=%h/apps/paperless/paperless.env
 AutoUpdate=registry
 
 Volume=%h/apps/paperless/data:/usr/src/paperless/data:z
@@ -24,7 +24,7 @@ Environment=PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://${PAPERLESS_INTERNAL_HOST}:
 Environment=PAPERLESS_TIKA_ENDPOINT=http://${PAPERLESS_INTERNAL_HOST}:9998
 
 [Service]
-EnvironmentFile=%h/apps/paperless/.env
+EnvironmentFile=%h/apps/paperless/paperless.env
 Volume=/etc/localtime:/etc/localtime:ro
 ExecStartPre=sleep 15
 Restart=always

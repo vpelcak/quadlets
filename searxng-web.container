@@ -8,7 +8,7 @@ Pod=searxng.pod
 ContainerName=searxngweb
 Image=docker.io/searxng/searxng:latest
 AutoUpdate=registry
-EnvironmentFile=%h/apps/searxng/.env
+EnvironmentFile=%h/apps/searxng/searxng.env
 
 Volume=%h/apps/searxng:/etc/searxng:z
 

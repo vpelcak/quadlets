@@ -7,7 +7,7 @@ Pod=tailscale.pod
 ContainerName=tailscale
 Image=ghcr.io/tailscale/tailscale:latest
 AutoUpdate=registry
-EnvironmentFile=%h/apps/tailscale/.env
+EnvironmentFile=%h/apps/tailscale/tailscale.env
 
 Volume=%h/apps/tailscale:/var/lib/tailscale:z
 

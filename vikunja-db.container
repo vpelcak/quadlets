@@ -8,7 +8,7 @@ ContainerName=vikunja-db
 Image=docker.io/postgres:16
 AutoUpdate=registry
 
-EnvironmentFile=%h/apps/vikunja/.env
+EnvironmentFile=%h/apps/vikunja/vikunja.env
 
 Environment=POSTGRES_PASSWORD=${DATABASE_PASSWORD}
 Environment=POSTGRES_USER=${DATABASE_USER}
@@ -21,7 +21,7 @@ Volume=%h/apps/vikunja/db:/var/lib/postgresql/data:z
 Timezone=Europe/Prague
 
 [Service]
-EnvironmentFile=%h/apps/vikunja/.env
+EnvironmentFile=%h/apps/vikunja/vikunja.env
 Restart=always
 TimeoutStartSec=300
 

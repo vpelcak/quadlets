@@ -8,7 +8,7 @@ RequiresMountsFor=%t/containers
 ContainerName=pihole
 Image=docker.io/pihole/pihole:latest
 AutoUpdate=registry
-EnvironmentFile=%h/apps/pihole/.env
+EnvironmentFile=%h/apps/pihole/pihole.env
 
 Network=podman
 IP=10.88.0.3

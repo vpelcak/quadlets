@@ -8,7 +8,7 @@ ContainerName=mealie
 Image=ghcr.io/mealie-recipes/mealie:latest
 AutoUpdate=registry
 
-EnvironmentFile=%h/apps/mealie/.env
+EnvironmentFile=%h/apps/mealie/mealie.env
 
 PublishPort=9925:9000
 Volume=%h/apps/mealie:/app/data:Z

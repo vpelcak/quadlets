@@ -8,7 +8,7 @@ ContainerName=hoarder-web
 Image=ghcr.io/hoarder-app/hoarder:release
 AutoUpdate=registry
 
-EnvironmentFile=%h/apps/hoarder/.env
+EnvironmentFile=%h/apps/hoarder/hoarder.env
 
 Volume=%h/apps/hoarder/data:/data:z
 

@@ -8,7 +8,7 @@ Pod=joplin.pod
 ContainerName=joplin-app
 Image=docker.io/joplin/server:latest
 AutoUpdate=registry
-EnvironmentFile=%h/apps/joplin/.env
+EnvironmentFile=%h/apps/joplin/joplin.env
 
 Environment=APP_PORT=${JOPLIN_APP_PORT}
 Environment=APP_BASE_URL=${JOPLIN_APP_BASE_URL}
@@ -22,7 +22,7 @@ Environment=POSTGRES_HOST=${JOPLIN_POSTGRES_HOST}
 Timezone=Europe/Prague
 
 [Service]
-EnvironmentFile=%h/apps/joplin/.env
+EnvironmentFile=%h/apps/joplin/joplin.env
 Restart=always
 TimeoutStartSec=300
 

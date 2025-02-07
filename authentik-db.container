@@ -8,7 +8,7 @@ Pod=authentik.pod
 ContainerName=authentik-db
 Image=docker.io/library/postgres:16-alpine
 AutoUpdate=registry
-EnvironmentFile=%h/apps/authentik/.env
+EnvironmentFile=%h/apps/authentik/authentik.env
 
 Environment=POSTGRES_PASSWORD=${AUTHENTIK_PG_PASS}
 Environment=POSTGRES_USER=${AUTHENTIK_POSTGRES_USER}
@@ -28,7 +28,7 @@ Volume=%h/apps/authentik/db:/var/lib/postgresql/data:z
 Timezone=Europe/Prague
 
 [Service]
-EnvironmentFile=%h/apps/authentik/.env
+EnvironmentFile=%h/apps/authentik/authentik.env
 Restart=always
 TimeoutStartSec=300
 

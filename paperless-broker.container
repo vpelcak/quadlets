@@ -20,7 +20,7 @@ Volume=%h/apps/paperless/redis/data:/data:Z
 Timezone=Europe/Prague
 
 [Service]
-EnvironmentFile=%h/apps/paperless/.env
+EnvironmentFile=%h/apps/paperless/paperless.env
 Restart=always
 TimeoutStartSec=300
 

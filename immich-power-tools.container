@@ -6,7 +6,7 @@ After=network-online.target
 [Container]
 ContainerName=immich-power-tools
 Image=ghcr.io/varun-raj/immich-power-tools:latest
-EnvironmentFile=%h/apps/immich/.env
+EnvironmentFile=%h/apps/immich/immich.env
 AutoUpdate=registry
 
 Environment=DB_HOST=${IMMICH_DB_HOST} # Postgres Host (IP address or hostname of the database)
@@ -26,7 +26,7 @@ PublishPort=8005:3000
 Timezone=Europe/Prague
 
 [Service]
-EnvironmentFile=%h/apps/immich/.env
+EnvironmentFile=%h/apps/immich/immich.env
 Restart=always
 
 [Install]
