@@ -9,7 +9,7 @@ ContainerName=hoarder-meilisearch
 Image=docker.io/getmeili/meilisearch:v1.11.1
 AutoUpdate=registry
 
-EnvironmentFile==%h/apps/hoarder/.env
+EnvironmentFile=%h/apps/hoarder/.env
 
 Volume=%h/apps/hoarder/meilisearch:/meili_data:z
 
