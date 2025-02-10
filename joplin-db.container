@@ -13,7 +13,7 @@ Environment=POSTGRES_PASSWORD=${JOPLIN_POSTGRES_PASSWORD}
 Environment=POSTGRES_USER=${JOPLIN_POSTGRES_USER}
 Environment=POSTGRES_DB=${JOPLIN_POSTGRES_DATABASE}
 
-HealthCmd=pg_isready --dbname='${POSTGRES_DB}' --username='${POSTGRES_USER}' || exit 1; Chksum="$$(psql --dbname='${POSTGRES_DB}' --username='${POSTGRES_USER}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
+HealthCmd=pg_isready --dbname='${JOPLIN_POSTGRES_DATABASE}' --username='${JOPLIN_POSTGRES_USER}' || exit 1; Chksum="$$(psql --dbname='${JOPLIN_POSTGRES_DATABASE}' --username='${JOPLIN_POSTGRES_USER}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
 
 Volume=%h/apps/joplin/db:/var/lib/postgresql/data:z
 
