@@ -11,6 +11,8 @@ Exec=postgres -c shared_preload_libraries=vectors.so -c 'search_path="$$user", p
 AutoUpdate=registry
 EnvironmentFile=%h/apps/immich/immich.env
 
+Exec=-c shared_preload_libraries=vectors.so -c 'search_path="$$user", public, vectors' -c logging_collector=on -c max_wal_size=2GB -c shared_buffers=512MB -c wal_compression=on
+
 Environment=POSTGRES_PASSWORD: ${IMMICH_DB_PASSWORD}
 Environment=POSTGRES_USER: ${IMMICH_DB_USERNAME}
 Environment=POSTGRES_DB: ${DB_DATABASE_NAME}
@@ -19,6 +21,11 @@ Environment=POSTGRES_INITDB_ARGS: '--data-checksums'
 Volume=/etc/localtime:/etc/localtime:ro
 
 HealthCmd=pg_isready --dbname='${DB_DATABASE_NAME}' --username='${DB_USERNAME}' || exit 1; Chksum="$$(psql --dbname='${DB_DATABASE_NAME}' --username='${DB_USERNAME}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
+HealthStartPeriod=5m
+HealthInterval=30s
+HealthTimeout=5s
+HealthRetries=5
+Notify=healthy
 
 Volume=${DB_DATA_LOCATION}:/var/lib/postgresql/data:z
 
