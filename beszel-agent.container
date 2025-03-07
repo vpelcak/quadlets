@@ -1,0 +1,28 @@
+[Unit]
+Description=beszel agent
+After=network-online.target
+
+[Container]
+Pod=beszel.pod
+ContainerName=beszel-agent
+Image=docker.io/henrygd/beszel-agent:latest
+AutoUpdate=registry
+
+Network=host
+
+Timezone=Europe/Prague
+
+Environment=PORT=45876
+Environment=KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH7CURgltFvPyQMszb4iO7YUwZVC9mZKE2fi4cnWuAEx"
+Environment=DOCKER_HOST="unix:///run/user/1000/podman/podman.sock"
+
+Volume=/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro
+
+Volume=/:/extra-filesystems/nvme0:ro
+Volume=/home/vpelcak/SSD:/extra-filesystems/sda:ro
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,6 @@
+[Pod]
+Network=podman
+AddHost=host.containers.internal:host-gateway
+IP=10.88.0.34
+PodName=beszel
+PublishPort=8090:8090

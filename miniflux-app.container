@@ -1,0 +1,27 @@
+[Unit]
+Description=Miniflux App
+Requires=miniflux-db.service
+After=network-online.target
+
+[Container]
+Pod=miniflux.pod
+ContainerName=miniflux-app
+Image=docker.io/miniflux/miniflux:latest
+AutoUpdate=registry
+EnvironmentFile=%h/apps/miniflux/miniflux.env
+
+Environment=DATABASE_URL=postgres://miniflux:secret@0.0.0.0/miniflux?sslmode=disable
+Environment=RUN_MIGRATIONS=1
+Environment=CREATE_ADMIN=1
+Environment=ADMIN_USERNAME=${ADM_USERNAME}
+Environment=ADMIN_PASSWORD=${ADM_PASSWORD}
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+EnvironmentFile=%h/apps/miniflux/miniflux.env
+
+[Install]
+WantedBy=multi-user.target default.target

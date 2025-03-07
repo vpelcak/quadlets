@@ -1,0 +1,21 @@
+[Unit]
+Description=beszel hub
+After=network-online.target
+
+[Container]
+Pod=beszel.pod
+ContainerName=beszel-hub
+Image=docker.io/henrygd/beszel
+AutoUpdate=registry
+
+Timezone=Europe/Prague
+
+Volume=%h/apps/beszel:/beszel_data:Z
+
+Environment=DOCKER_HOST=/run/user/1000/podman/podman.sock
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

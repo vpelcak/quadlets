@@ -1,0 +1,27 @@
+[Unit]
+Description=Cupdate
+After=network-online.target
+
+[Container]
+ContainerName=cupdate
+Image=ghcr.io/alexgustafsson/cupdate:latest
+PublishPort=8956:8080
+AutoUpdate=registry
+Network=podman
+IP=10.88.0.10
+
+Timezone=Europe/Prague
+
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+SecurityLabelDisable=true
+
+Environment=CUPDATE_DOCKER_HOST=unix:///var/run/docker.sock
+Environment=CUPDATE_CACHE_PATH: %h/apps/cupdate/cachev1.boltdb:z
+Environment=CUPDATE_DB_PATH: %h/apps/cupdate/dbv1.sqlite:z
+Volume=%h/apps/cupdate/tmp:/tmp:z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

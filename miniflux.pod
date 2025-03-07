@@ -1,0 +1,5 @@
+[Pod]
+Network=podman
+IP=10.88.0.37
+PodName=miniflux
+PublishPort=83:8080
