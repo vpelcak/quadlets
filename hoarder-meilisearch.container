@@ -11,7 +11,7 @@ AutoUpdate=registry
 
 EnvironmentFile=%h/apps/hoarder/hoarder.env
 
-Volume=%h/apps/hoarder/meilisearch:/meili_data:z
+Volume=hoarder-meilisearch:/meili_data
 
 Environment=MEILI_NO_ANALYTICS=true
 

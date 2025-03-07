@@ -18,6 +18,12 @@ HealthTimeout=5s
 HealthRetries=5
 Notify=healthy
 
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+SecurityLabelDisable=true
+
+Label=glance.parent: immich
+Label=glance.name: ML
+
 [Service]
 Restart=always
 TimeoutStartSec=300

@@ -12,6 +12,8 @@ Volume=%h/apps/homepage:/app/config:Z
 Volume=%h/apps/homepage/images:/app/public/images:Z
 Volume=/%t/podman/podman.sock:/run/podman/podman.sock:ro,z
 
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+SecurityLabelDisable=true
 
 Network=podman
 IP=10.88.0.2

@@ -17,11 +17,11 @@ Environment=POSTGRES_DB=${AUTHENTIK_POSTGRES_DB}
 Volume=/etc/localtime:/etc/localtime:ro
 
 HealthCmd=pg_isready --dbname='${AUTHENTIK_POSTGRES_DB}' --username='${AUTHENTIK_POSTGRES_USER}' || exit 1; Chksum="$$(psql --dbname='${AUTHENTIK_POSTGRES_DB}' --username='${AUTHENTIK_POSTGRES_USER}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
-#HealthStartPeriod=30s
-#HealthInterval=30s
-#HealthTimeout=5s
-#HealthRetries=5
-#Notify=healthy
+HealthStartPeriod=30s
+HealthInterval=30s
+HealthTimeout=5s
+HealthRetries=5
+Notify=healthy
 
 Volume=%h/apps/authentik/db:/var/lib/postgresql/data:z
 

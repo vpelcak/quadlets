@@ -10,13 +10,22 @@ Image=ghcr.io/immich-app/immich-server:release
 EnvironmentFile=%h/apps/immich/immich.env
 #AutoUpdate=registry
 
-Volume=%h/SSD/Pictures/Library:/usr/src/app/upload:z
+Volume=${UPLOAD_LOCATION}:/usr/src/app/upload:z
 Volume=/etc/localtime:/etc/localtime:ro
 
 Timezone=Europe/Prague
 
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+SecurityLabelDisable=true
+
+Label=glance.name: Immich
+Label=glance.icon: si:immich
+Label=glance.url: https://immich.web.pelcak.org
+Label=glance.description: Image & video management
+Label=glance.id: immich
+
 [Service]
-#EnvironmentFile=%h/apps/immich/immich.env
+EnvironmentFile=%h/apps/immich/immich.env
 ExecStartPre=sleep 15
 Restart=always
 

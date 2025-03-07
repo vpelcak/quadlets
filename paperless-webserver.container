@@ -25,7 +25,6 @@ Environment=PAPERLESS_TIKA_ENDPOINT=http://${PAPERLESS_INTERNAL_HOST}:9998
 
 [Service]
 EnvironmentFile=%h/apps/paperless/paperless.env
-Volume=/etc/localtime:/etc/localtime:ro
 ExecStartPre=sleep 15
 Restart=always
 

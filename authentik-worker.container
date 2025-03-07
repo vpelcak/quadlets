@@ -6,7 +6,7 @@ After=network-online.target
 [Container]
 Pod=authentik.pod
 ContainerName=authentik-worker
-Image=ghcr.io/goauthentik/server:2024.12.3
+Image=ghcr.io/goauthentik/server:2025.2.1
 EnvironmentFile=%h/apps/authentik/authentik.env
 AutoUpdate=registry
 

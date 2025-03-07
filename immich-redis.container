@@ -5,7 +5,7 @@ After=network-online.target
 [Container]
 Pod=immich.pod
 ContainerName=immich-redis
-Image=docker.io/redis:6.2-alpine@sha256:905c4ee67b8e0aa955331960d2aa745781e6bd89afc44a8584bfd13bc890f0ae
+Image=docker.io/redis:6.2-alpine@sha256:148bb5411c184abd288d9aaed139c98123eeb8824c5d3fce03cf721db58066d8
 
 HealthCmd=["/usr/local/bin/redis-cli", "ping"]
 HealthStartPeriod=30s
@@ -17,6 +17,12 @@ Notify=healthy
 Volume=%h/apps/immich/redis:/data:Z
 
 Timezone=Europe/Prague
+
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+SecurityLabelDisable=true
+
+Label=glance.parent: immich
+Label=glance.name: Redis
 
 [Service]
 Restart=always

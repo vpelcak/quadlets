@@ -18,8 +18,6 @@ PublishPort=22000:22000/tcp
 PublishPort=22000:22000/udp
 PublishPort=21027:21027/udp
 
-#UIDMap=0:1000:1
-
 Network=podman
 IP=10.88.0.30
 

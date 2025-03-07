@@ -3,7 +3,7 @@ Description=Ntfy.sh
 After=network-online.target
 
 [Container]
-ContainerName=Ntfy
+ContainerName=ntfy
 Image=docker.io/binwiederhier/ntfy
 AutoUpdate=registry
 Exec=serve

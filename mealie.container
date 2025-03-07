@@ -4,7 +4,6 @@ After=network-online.target
 
 [Container]
 ContainerName=mealie
-#Image=ghcr.io/mealie-recipes/mealie:v2.4.2
 Image=ghcr.io/mealie-recipes/mealie:latest
 AutoUpdate=registry
 

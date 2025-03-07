@@ -31,6 +31,12 @@ Volume=${DB_DATA_LOCATION}:/var/lib/postgresql/data:z
 
 Timezone=Europe/Prague
 
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+SecurityLabelDisable=true
+
+Label=glance.parent: immich
+Label=glance.name: DB
+
 [Service]
 EnvironmentFile=%h/apps/immich/immich.env
 Restart=always

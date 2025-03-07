@@ -13,6 +13,9 @@ IP=10.88.0.13
 
 Timezone=Europe/Prague
 
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+SecurityLabelDisable=true
+
 [Service]
 Restart=always
 

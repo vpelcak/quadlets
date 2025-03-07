@@ -12,7 +12,6 @@ AutoUpdate=registry
 Environment=DB_HOST=${IMMICH_DB_HOST} # Postgres Host (IP address or hostname of the database)
 Environment=DB_PORT=${IMMICH_DB_PORT} # Postgres Port number (Default: 5432)
 
-#Environment=DB_HOST=192.168.60.139
 
 Environment=IMMICH_API_KEY=${IMMICH_API_KEY}
 Environment=IMMICH_URL=${IMMICH_URL}

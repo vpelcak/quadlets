@@ -18,8 +18,6 @@ Volume=/etc/localtime:/etc/localtime:ro
 
 HealthCmd=pg_isready --dbname='${PAPERLESS_POSTGRES_DB}' --username='${PAPERLESS_POSTGRES_USER}' || exit 1; Chksum="$$(psql --dbname='${PAPERLESS_POSTGRES_DB}' --username='${PAPERLESS_POSTGRES_USER}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
 
-#Volume=${DB_DATA_LOCATION}:/var/lib/postgresql/data:z
-
 Volume=%h/apps/paperless/db:/var/lib/postgresql/data:z
 
 Timezone=Europe/Prague
