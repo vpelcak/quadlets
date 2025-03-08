@@ -1,5 +1,5 @@
 [Unit]
-Description=Home Assistent
+Description=Home Assistant
 After=network-online.target
 
 [Container]
@@ -9,7 +9,7 @@ AutoUpdate=registry
 
 Network=podman
 IP=10.88.0.25
-HostName=backrest
+HostName=homeassistant
 PublishPort=8123:8123
 Volume=%h/apps/homeassistent/data:/config:z
 
