@@ -1,7 +1,6 @@
 [Unit]
 Description=Immich Machine Learning
 Requires=immich-redis.service immich-database.service
-After=network-online.target
 
 [Container]
 Pod=immich.pod
@@ -21,8 +20,8 @@ Notify=healthy
 Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
 SecurityLabelDisable=true
 
-Label=glance.parent: immich
-Label=glance.name: ML
+Label=glance.parent=immich
+Label=glance.name=ML
 
 [Service]
 Restart=always

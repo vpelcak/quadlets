@@ -1,12 +1,11 @@
 [Unit]
 Description=Immich Database
 Requires=immich-redis.service
-After=network-online.target
 
 [Container]
 Pod=immich.pod
 ContainerName=immich-database
-Image=docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
+Image=docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:739cdd626151ff1f796dc95a6591b55a714f341c737e27f045019ceabf8e8c52
 Exec=postgres -c shared_preload_libraries=vectors.so -c 'search_path="$$user", public, vectors' -c logging_collector=on -c max_wal_size=2GB -c shared_buffers=512MB -c wal_compression=on
 AutoUpdate=registry
 EnvironmentFile=%h/apps/immich/immich.env
@@ -34,8 +33,8 @@ Timezone=Europe/Prague
 Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
 SecurityLabelDisable=true
 
-Label=glance.parent: immich
-Label=glance.name: DB
+Label=glance.parent=immich
+Label=glance.name=DB
 
 [Service]
 EnvironmentFile=%h/apps/immich/immich.env

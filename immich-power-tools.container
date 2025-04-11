@@ -1,7 +1,6 @@
 [Unit]
 Description=Immich Power tools
 Requires=immich-pod.service
-After=network-online.target
 
 [Container]
 ContainerName=immich-power-tools
@@ -23,6 +22,17 @@ IP=10.88.0.12
 PublishPort=8005:3000
 
 Timezone=Europe/Prague
+
+Label=homepage.group="Media Management"
+Label=homepage.name="Immich Power Tools"
+Label=homepage.icon=sh-immich-power-tools
+Label=homepage.href=http://192.168.60.139:8005
+Label=homepage.description="Home Album - Power Tools"
+Label=homepage.statusStyle=dot
+Label=homepage.showStats=false
+
+Label=glance.parent=immich
+Label=glance.name=Power Tools
 
 [Service]
 EnvironmentFile=%h/apps/immich/immich.env

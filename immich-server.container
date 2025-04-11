@@ -1,7 +1,6 @@
 [Unit]
 Description=Immich server
 Requires=immich-redis.service immich-database.service
-After=network-online.target
 
 [Container]
 Pod=immich.pod
@@ -18,11 +17,24 @@ Timezone=Europe/Prague
 Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
 SecurityLabelDisable=true
 
-Label=glance.name: Immich
-Label=glance.icon: si:immich
-Label=glance.url: https://immich.web.pelcak.org
-Label=glance.description: Image & video management
-Label=glance.id: immich
+Label=glance.name=Immich
+Label=glance.icon=si:immich
+Label=glance.url=http://192.168.60.139:2283
+Label=glance.description=Image & video management
+Label=glance.id=immich
+
+Label=homepage.group="Media Management"
+Label=homepage.name=Immich
+Label=homepage.icon=immich.png
+Label=homepage.href=http://192.168.60.139:2283
+Label=homepage.description="Home Photo Album"
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=immich
+Label=homepage.widget.url=http://192.168.60.139:2283
+Label=homepage.widget.key=${IMMICH_API_KEY}
+Label=homepage.widget.version=2
+#Label=homepage.widget.fields=["photos", "videos", "storage"]
+Label=homepage.showStats=false
 
 [Service]
 EnvironmentFile=%h/apps/immich/immich.env
