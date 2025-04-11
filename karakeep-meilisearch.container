@@ -1,0 +1,25 @@
+[Unit]
+Description=Karakeep Meilisearch
+Requires=karakeep-web.service
+
+[Container]
+Pod=karakeep.pod
+ContainerName=karakeep-meilisearch
+#Image=docker.io/getmeili/meilisearch:v1.11.1
+Image=docker.io/getmeili/meilisearch:latest
+AutoUpdate=registry
+
+EnvironmentFile=%h/apps/karakeep/karakeep.env
+
+Volume=%h/apps/karakeep/meilisearch:/meili_data:Z
+
+Environment=MEILI_NO_ANALYTICS=true
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

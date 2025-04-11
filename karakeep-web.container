@@ -1,0 +1,33 @@
+[Unit]
+Description=Karakeep
+
+[Container]
+Pod=karakeep.pod
+ContainerName=karakeep-web
+Image=ghcr.io/karakeep-app/karakeep:release
+AutoUpdate=registry
+
+EnvironmentFile=%h/apps/karakeep/karakeep.env
+
+Volume=%h/apps/karakeep/data:/data:Z
+
+Environment=MEILI_ADDR=http://0.0.0.0:7700
+Environment=BROWSER_WEB_URL=http://0.0.0.0:9222
+Environment=DATA_DIR=/data
+
+Timezone=Europe/Prague
+
+Label=homepage.group=Services
+Label=homepage.name=Karakeep
+Label=homepage.icon=sh-karakeep-light
+Label=homepage.href=http://192.168.60.139:3005
+Label=homepage.description="Selfhosted Pocket"
+Label=homepage.statusStyle=dot
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

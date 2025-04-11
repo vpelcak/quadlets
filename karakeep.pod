@@ -1,5 +1,5 @@
 [Pod]
 Network=podman
 IP=10.88.0.29
-PodName=hoarder
+PodName=karakeep
 PublishPort=3005:3000
