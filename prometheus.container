@@ -1,14 +1,12 @@
 [Unit]
 Description=Prometheus
-Wants=network-online.target
-After=network-online.target
 
 [Container]
 ContainerName=prometheus
 Image=docker.io/prom/prometheus
 PublishPort=9095:9090
+Volume=%h/apps/prometheus:/prometheus:Z
 Volume=%h/apps/prometheus/config:/etc/prometheus:Z
-#Volume=prometheus.volume:/prometheus
 AutoUpdate=registry
 Network=podman
 IP=10.88.0.4
@@ -17,6 +15,14 @@ Environment=PUID=1000
 Environment=PGID=1000
 
 Timezone=Europe/Prague
+
+Label=homepage.group=System
+Label=homepage.name=Prometheus
+Label=homepage.icon=prometheus.png
+Label=homepage.href=http://192.168.60.139:9095
+Label=homepage.description="System Monitoring"
+Label=homepage.statusStyle=dot
+Label=homepage.showStats=false
 
 [Service]
 Restart=always
