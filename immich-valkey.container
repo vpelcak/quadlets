@@ -1,0 +1,32 @@
+[Unit]
+Description=Immich Valkey
+
+[Container]
+Pod=immich.pod
+ContainerName=immich-valkey
+Image=docker.io/valkey/valkey:8@sha256:81db6d39e1bba3b3ff32bd3a1b19a6d69690f94a3954ec131277b9a26b95b3aa
+AutoUpdate=registry
+
+HealthCmd=["/usr/local/bin/redis-cli", "ping"]
+HealthStartPeriod=30s
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
+Notify=healthy
+
+Volume=%h/apps/immich/redis:/data:Z
+
+Timezone=Europe/Prague
+
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+SecurityLabelDisable=true
+
+Label=glance.parent=immich
+Label=glance.name=Valkey
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

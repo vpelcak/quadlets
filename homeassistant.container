@@ -1,9 +1,8 @@
 [Unit]
 Description=Home Assistant
-After=network-online.target
 
 [Container]
-ContainerName=homeassistent
+ContainerName=homeassistant
 Image=lscr.io/linuxserver/homeassistant:latest
 AutoUpdate=registry
 
@@ -11,12 +10,22 @@ Network=podman
 IP=10.88.0.25
 HostName=homeassistant
 PublishPort=8123:8123
-Volume=%h/apps/homeassistent/data:/config:z
+Volume=%h/apps/homeassistant/data:/config:z
 
-Environment=PUID=1000
-Environment=PGID=1000
+Environment=PUID=0
+Environment=PGID=0
+Environment=TZ=Europe/Prague
 
 Timezone=Europe/Prague
+
+Label=homepage.group=Services
+Label=homepage.name="Home Assistant"
+Label=homepage.icon=home-assistant.png
+Label=homepage.href=http://192.168.60.139:8123
+Label=homepage.description="Home Automation"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
 
 [Service]
 Restart=always

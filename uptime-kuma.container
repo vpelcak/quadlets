@@ -1,10 +1,9 @@
 [Unit]
 Description=Uptime-Kuma server
-After=network-online.target
 
 [Container]
 ContainerName=uptime-kuma
-Image=docker.io/louislam/uptime-kuma:1
+Image=docker.io/louislam/uptime-kuma:next
 AutoUpdate=registry
 
 HealthCmd=curl http://127.0.0.1:3001
@@ -16,6 +15,17 @@ PublishPort=3001:3001
 Volume=%h/apps/uptime-kuma:/app/data:Z
 
 Timezone=Europe/Prague
+
+Label=homepage.group=System
+Label=homepage.name="Uptime Kuma"
+Label=homepage.icon=uptime-kuma.png
+Label=homepage.href=http://192.168.60.139:3001
+Label=homepage.description="Health Monitoring"
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=uptimekuma
+Label=homepage.widget.url=http://192.168.60.139:3001
+Label=homepage.widget.slug=statuspage
+Label=homepage.showStats=false
 
 [Service]
 Restart=always

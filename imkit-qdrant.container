@@ -1,0 +1,15 @@
+[Unit]
+Description=Immich Mediakit Qdrant
+
+[Container]
+Pod=imkit.pod
+ContainerName=imkit-qdrant
+Image=docker.io/qdrant/qdrant:latest
+
+Volume=%h/apps/imkit/qdrant:/qdrant/storage:z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

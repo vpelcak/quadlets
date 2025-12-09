@@ -1,0 +1,28 @@
+[Unit]
+Description=Watched Movie Tracking
+After=local-fs.target
+
+[Container]
+ContainerName=watcharr
+Image=ghcr.io/sbondco/watcharr:latest
+
+Volume=%h/apps/watcharr:/data:Z
+
+Network=podman
+IP=10.88.0.103
+
+PublishPort=3080:3080
+
+Label=homepage.group=Media
+Label=homepage.name=Watcharr
+Label=homepage.icon=sh-watcharr
+Label=homepage.href=http://192.168.60.139:3080
+Label=homepage.description="Watched Movie Tracking"
+Label=homepage.statusStyle=dot
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

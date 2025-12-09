@@ -1,0 +1,40 @@
+[Unit]
+Description=Upvote RSS
+After=local-fs.target
+Requires=podman.socket
+After=podman.socket
+
+[Container]
+ContainerName=upvote-rss
+Image=ghcr.io/johnwarne/upvote-rss:latest
+AutoUpdate=registry
+Timezone=Europe/Prague
+
+Network=podman
+IP=10.88.0.43
+PublishPort=8675:80
+
+Volume=upvote-rss-cache:/app/cache
+
+EnvironmentFile=%h/apps/upvote-rss/upvote-rss.env
+
+Environment=REDDIT_USER=${REDDIT_USERNAME}
+Environment=REDDIT_CLIENT_ID=${REDDIT_ID}
+Environment=REDDIT_CLIENT_SECRET=${REDDIT_SECRET}
+
+Label=homepage.group=Services
+Label=homepage.name="Upvote RSS"
+Label=homepage.icon=sh-upvote-rss-light
+Label=homepage.href=http://192.168.60.139:8675
+Label=homepage.description="Upvote RSS"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+EnvironmentFile=%h/apps/upvote-rss/upvote-rss.env
+
+[Install]
+WantedBy=default.target

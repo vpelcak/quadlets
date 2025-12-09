@@ -1,0 +1,33 @@
+[Unit]
+Description=HabitTrove
+
+[Container]
+ContainerName=habittrove
+Image=docker.io/dohsimpson/habittrove
+AutoUpdate=registry
+
+Network=podman
+IP=10.88.0.96
+HostName=habittrove
+PublishPort=3600:3000
+Volume=%h/apps/habittrove/data:/app/data:z
+Volume=%h/apps/habittrove/backups:/app/backups:z
+
+Environment=AUTH_SECRET=supersecret
+
+Timezone=Europe/Prague
+
+Label=homepage.group=Services
+Label=homepage.name=HabitTrove
+Label=homepage.icon=sh-habitica-light
+Label=homepage.href=http://192.168.60.139:3600
+Label=homepage.description="Habit Tracking"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

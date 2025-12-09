@@ -1,16 +1,15 @@
 [Unit]
 Description=Paperless Database
 Requires=paperless-broker.service
-After=network-online.target
 
 [Container]
 Pod=paperless.pod
 ContainerName=paperless-db
-Image=docker.io/library/postgres:16
+Image=docker.io/postgres:18
 AutoUpdate=registry
 EnvironmentFile=%h/apps/paperless/paperless.env
 
-Environment=POSTGRES_PASSWORD=${PAPERLESS_POSTGRES_USER}
+Environment=POSTGRES_PASSWORD=${PAPERLESS_POSTGRES_PASSWORD}
 Environment=POSTGRES_USER=${PAPERLESS_POSTGRES_USER}
 Environment=POSTGRES_DB=${PAPERLESS_POSTGRES_DB}
 
@@ -18,7 +17,7 @@ Volume=/etc/localtime:/etc/localtime:ro
 
 HealthCmd=pg_isready --dbname='${PAPERLESS_POSTGRES_DB}' --username='${PAPERLESS_POSTGRES_USER}' || exit 1; Chksum="$$(psql --dbname='${PAPERLESS_POSTGRES_DB}' --username='${PAPERLESS_POSTGRES_USER}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
 
-Volume=%h/apps/paperless/db:/var/lib/postgresql/data:z
+Volume=%h/apps/paperless/db:/var/lib/postgresql:z
 
 Timezone=Europe/Prague
 

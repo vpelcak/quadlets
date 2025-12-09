@@ -1,0 +1,35 @@
+[Unit]
+Description=Find New Series or Movies
+After=local-fs.target
+
+[Container]
+ContainerName=suggestarr
+Image=docker.io/ciuse99/suggestarr:latest
+
+Environment=PUID=0
+Environment=PGID=0
+Environment=TZ=Europe/Prague
+
+Volume=%h/apps/suggestarr:/app/config/config_files:Z
+
+Network=podman
+IP=10.88.0.97
+
+PublishPort=7879:5000
+
+#Environment=SUGGESTARR_PORT=7879
+
+Label=homepage.group=Media
+Label=homepage.name=Suggestarr
+Label=homepage.icon=sh-pulsarr-light
+Label=homepage.href=http://192.168.60.139:7879
+Label=homepage.description="Find New Series or Movies"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

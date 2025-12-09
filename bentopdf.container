@@ -1,0 +1,28 @@
+[Unit]
+Description=Bento PDF
+
+[Container]
+ContainerName=bento-pdf
+Image=docker.io/bentopdf/bentopdf-simple:latest
+AutoUpdate=registry
+
+Network=podman
+IP=10.88.0.116
+PublishPort=3085:8080
+
+Timezone=Europe/Prague
+
+Label=homepage.group=Services
+Label=homepage.name="Bento PDF"
+Label=homepage.icon=sh-bentopdf-light
+Label=homepage.href=http://192.168.60.139:3085
+Label=homepage.description="Modify your PDF Files"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

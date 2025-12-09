@@ -1,0 +1,32 @@
+[Unit]
+Description=Subsyncarr
+
+[Container]
+ContainerName=subsincarr
+Image=docker.io/mrorbitman/subsyncarr:latest
+
+AutoUpdate=registry
+
+Volume=/var/mnt/media/Filmy:/movies:Z
+Volume=/var/mnt/media/Serialy:/tv:Z
+Volume=/var/mnt/media/Vecernicky:/fairies:Z
+
+Environment=PUID=0
+Environment=PGID=0
+Environment=TZ=Europe/Prague
+Environment=CRON_SCHEDULE="0 0 * * *"
+Environment=SCAN_PATHS=/movies,/tv,/fairies
+Environment=EXCLUDE_PATHS=/movies/@Recycle,/tv/@Recycle,/fairies/@Recycle
+Environment=MAX_CONCURRENT_SYNC_TASKS=1
+#Environment=INCLUDE_ENGINES=ffsubsync,autosubsync
+Environment=INCLUDE_ENGINES=ffsubsync
+
+Label=homepage.group="Media"
+Label=homepage.name="Subsyncarr"
+Label=homepage.icon=sh-subsyncarr
+Label=homepage.description="Subtitle Sync"
+Label=homepage.statusStyle=dot
+Label=homepage.showStats=false
+
+[Service]
+#Restart=always

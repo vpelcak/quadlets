@@ -1,0 +1,27 @@
+[Unit]
+Description=Kitchenowl App
+
+[Container]
+Pod=kitchenowl.pod
+ContainerName=kitchenowl-app
+Image=docker.io/tombursch/kitchenowl-web:latest
+AutoUpdate=registry
+
+Timezone=Europe/Prague
+
+Environment=BACK_URL=0.0.0.0:5000
+
+Label=homepage.group=Services
+Label=homepage.name=KitchenOwl
+Label=homepage.icon=sh-kitchenowl-light
+Label=homepage.href=http://192.168.60.139:9926
+Label=homepage.description="Grocery Management"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

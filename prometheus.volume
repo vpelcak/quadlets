@@ -1,5 +1,0 @@
-[Volume]
-#User=root
-#Group=root
-#Name=prometheus-data
-Driver=local

@@ -1,0 +1,10 @@
+[Pod]
+Network=podman
+IP=10.88.0.84
+PodName=qb
+PublishPort=8088:8080
+PublishPort=5498:6881/tcp
+PublishPort=5498:6881/udp
+PublishPort=8899:8888/tcp
+PublishPort=8388:8388/tcp
+PublishPort=8388:8388/udp

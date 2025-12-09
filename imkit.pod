@@ -1,0 +1,6 @@
+[Pod]
+Network=podman
+IP=10.88.0.111
+PodName=imkit
+PublishPort=8087:8086
+PublishPort=6333:6333

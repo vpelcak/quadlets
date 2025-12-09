@@ -1,6 +1,5 @@
 [Unit]
 Description=Grocy
-After=network-online.target
 
 [Container]
 ContainerName=grocy
@@ -9,6 +8,7 @@ AutoUpdate=registry
 
 Environment=PUID=1000
 Environment=PGID=1000
+Environment=TZ=Europe/Prague
 
 Network=podman
 IP=10.88.0.31
@@ -16,9 +16,18 @@ IP=10.88.0.31
 HostName=grocy
 
 PublishPort=9283:80
-Volume=%h/apps/grocy/config:/config:z
+Volume=%h/apps/grocy/config:/config:Z
 
 Timezone=Europe/Prague
+
+Label=homepage.group=Services
+Label=homepage.name=Grocy
+Label=homepage.icon=sh-grocy-light
+Label=homepage.href=http://192.168.60.139:9283
+Label=homepage.description="Grocery Management"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
 
 [Service]
 Restart=always

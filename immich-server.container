@@ -1,6 +1,6 @@
 [Unit]
 Description=Immich server
-Requires=immich-redis.service immich-database.service
+Requires=immich-valkey.service immich-database.service
 
 [Container]
 Pod=immich.pod
@@ -23,7 +23,7 @@ Label=glance.url=http://192.168.60.139:2283
 Label=glance.description=Image & video management
 Label=glance.id=immich
 
-Label=homepage.group="Media Management"
+Label=homepage.group="Media"
 Label=homepage.name=Immich
 Label=homepage.icon=immich.png
 Label=homepage.href=http://192.168.60.139:2283

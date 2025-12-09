@@ -1,7 +1,8 @@
 [Unit]
 Description=Miniflux App
 Requires=miniflux-db.service
-After=network-online.target
+StartLimitBurst=5
+StartLimitIntervalSec=360
 
 [Container]
 Pod=miniflux.pod
@@ -18,9 +19,27 @@ Environment=ADMIN_PASSWORD=${ADM_PASSWORD}
 
 Timezone=Europe/Prague
 
+#HealthCmd=["/usr/bin/miniflux -healthcheck", "auto"]
+#HealthStartPeriod=30s
+#HealthInterval=10s
+#HealthTimeout=5s
+#HealthRetries=5
+#Notify=healthy
+
+Label=homepage.group=Services
+Label=homepage.name=Miniflux
+Label=homepage.icon=miniflux-light.png
+Label=homepage.href=http://192.168.60.139:83
+Label=homepage.description="RSS Reader"
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=miniflux
+Label=homepage.widget.url=http://192.168.60.139:83
+Label=homepage.widget.key=${MINIFLUX_API}
+Label=homepage.showStats=false
+
 [Service]
 Restart=always
-TimeoutStartSec=300
+RestartSec=10
 EnvironmentFile=%h/apps/miniflux/miniflux.env
 
 [Install]

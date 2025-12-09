@@ -1,6 +1,5 @@
 [Unit]
 Description=Backrest
-After=network.target
 
 [Container]
 ContainerName=backrest
@@ -14,12 +13,29 @@ PublishPort=9898:9898
 Volume=%h/apps/backrest/data:/data:z
 Volume=%h/apps/backrest/config:/config:z
 Volume=%h/apps/backrest/cache:/cache:z
+Volume=%h/apps/backrest/tmp:/tmp:z
+Volume=%h/apps/backrest/rclone:/root/.config/rclone:Z
+Volume=%h/Backup/restic-backup:/repos:z
+Volume=%h/Pictures:/userdata/fotky:Z
+Volume=%h/.config/containers/systemd:/userdata/quadlets:Z
 
 Environment=BACKREST_DATA=/data
 Environment=BACKREST_CONFIG=/config/config.json
 Environment=XDG_CACHE_HOME=/cache
+Environment=TMPDIR=/tmp
+Environment=TZ=Europe/Prague
 
 Timezone=Europe/Prague
+
+Label=homepage.group=System
+Label=homepage.name=Backrest
+Label=homepage.icon=backrest-light.png
+Label=homepage.href=http://192.168.60.139:9898
+Label=homepage.description="Data Backup"
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=backrest
+Label=homepage.widget.url=http://192.168.60.139:9898/
+Label=homepage.showStats=false
 
 [Service]
 Restart=always

@@ -1,0 +1,35 @@
+[Unit]
+Description=Nginx Proxy Manager
+
+[Container]
+Pod=tailscale.pod
+ContainerName=tailscale-nginx
+Image=docker.io/jc21/nginx-proxy-manager:latest
+AutoUpdate=registry
+
+EnvironmentFile=%h/apps/nginx-proxy-manager/nginx.env
+#Environment=ACME_EMAIL=${NPM_USER}
+Environment=TZ=Europe/Prague
+
+Volume=%h/apps/nginx-proxy-manager/data:/data:Z
+Volume=%h/apps/nginx-proxy-manager/letsencrypt:/etc/letsencrypt:Z
+
+Label=homepage.group=System
+Label=homepage.name="Nginx Proxy Panager"
+Label=homepage.icon=nginx-proxy-manager.png
+Label=homepage.href=http://192.168.60.139:81
+Label=homepage.description="Proxy Management"
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=npm
+Label=homepage.widget.url=http://192.168.60.139:81
+Label=homepage.widget.username=${NPM_USER}
+Label=homepage.widget.password=${NPM_PASSWORD}
+#Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+EnvironmentFile=%h/apps/nginx-proxy-manager/nginx.env
+
+[Install]
+WantedBy=default.target

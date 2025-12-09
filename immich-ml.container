@@ -1,6 +1,6 @@
 [Unit]
 Description=Immich Machine Learning
-Requires=immich-redis.service immich-database.service
+Requires=immich-valkey.service immich-database.service
 
 [Container]
 Pod=immich.pod

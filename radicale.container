@@ -1,0 +1,42 @@
+[Unit]
+Description=Radicale
+
+[Container]
+ContainerName=radicale
+Image=docker.io/tomsquest/docker-radicale
+AutoUpdate=registry
+
+Network=podman
+IP=10.88.0.117
+PublishPort=5232:5232
+
+Timezone=Europe/Prague
+
+Volume=%h/apps/radicale/data:/data:z
+Volume=%h/apps/radicale/config:/config:z
+NoNewPrivileges=true
+DropCapability=ALL
+AddCapability=SETUID
+AddCapability=SETGID
+AddCapability=CHOWN
+AddCapability=KILL
+
+#HealthCmd=["curl -f http://0.0.0.0:5232 || exit 1"]
+#HealthInterval=30s
+#HealthRetries=3
+#Notify=healthy
+
+Label=homepage.group=Services
+Label=homepage.name="Radicale"
+Label=homepage.icon=sh-radicale-light
+Label=homepage.href=http://192.168.60.139:5232
+Label=homepage.description="CalDAV/CardDAV Server"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

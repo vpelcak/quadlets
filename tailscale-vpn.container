@@ -1,10 +1,9 @@
 [Unit]
 Description=Tailscale
-After=network-online.target
 
 [Container]
 Pod=tailscale.pod
-ContainerName=tailscale
+ContainerName=tailscale-vpn
 Image=ghcr.io/tailscale/tailscale:latest
 AutoUpdate=registry
 EnvironmentFile=%h/apps/tailscale/tailscale.env
@@ -17,11 +16,25 @@ AddCapability=net_admin
 Environment=TS_AUTHKEY=$(TS_AUTH_KEY)
 Environment=TS_EXTRA_ARGS=--advertise-tags=tag:container
 Environment=TS_STATE_DIR=/var/lib/tailscale
+Environment=TS_ENABLE_HEALTH_CHECK=true
 
 Timezone=Europe/Prague
 
+Label=homepage.group=System
+Label=homepage.name=Tailscale
+Label=homepage.icon=tailscale-light.png
+Label=homepage.href=http://192.168.60.139:443
+Label=homepage.description=VPN
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=tailscale
+Label=homepage.widget.url=http://192.168.60.139:443
+Label=homepage.widget.deviceid=${TS_DEVICEID}
+Label=homepage.widget.key=${TS_API_TOKEN}
+Label=homepage.showStats=false
+
 [Service]
 Restart=always
+EnvironmentFile=%h/apps/tailscale/tailscale.env
 
 [Install]
 WantedBy=default.target

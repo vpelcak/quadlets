@@ -1,0 +1,30 @@
+[Unit]
+Description=Manyfold Database
+Requires=manyfold-valkey.service
+
+[Container]
+Pod=manyfold.pod
+ContainerName=manyfold-db
+Image=docker.io/postgres:18
+AutoUpdate=registry
+EnvironmentFile=%h/apps/manyfold/manyfold.env
+
+Environment=POSTGRES_PASSWORD=${MANYFOLD_POSTGRES_USER}
+Environment=POSTGRES_USER=${MANYFOLD_POSTGRES_USER}
+Environment=POSTGRES_DB=${MANYFOLD_POSTGRES_DB}
+
+Volume=/etc/localtime:/etc/localtime:ro
+
+HealthCmd=pg_isready --dbname='${MANYFOLD_POSTGRES_DB}' --username='${MANYFOLD_POSTGRES_USER}' || exit 1; Chksum="$$(psql --dbname='${MANYFOLD_POSTGRES_DB}' --username='${MANYFOLD_POSTGRES_USER}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
+
+Volume=%h/apps/manyfold/db:/var/lib/postgresql:z
+
+Timezone=Europe/Prague
+
+[Service]
+EnvironmentFile=%h/apps/manyfold/manyfold.env
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

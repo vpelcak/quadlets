@@ -1,6 +1,5 @@
 [Unit]
-Description=beszel hub
-After=network-online.target
+Description=Beszel Hub
 
 [Container]
 Pod=beszel.pod
@@ -11,11 +10,41 @@ AutoUpdate=registry
 Timezone=Europe/Prague
 
 Volume=%h/apps/beszel:/beszel_data:Z
+Volume=%h/apps/beszel/beszel_socket:/beszel_socket:Z
 
 Environment=DOCKER_HOST=/run/user/1000/podman/podman.sock
+EnvironmentFile=%h/apps/beszel/beszel.env
+Volume=/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro
+
+HealthCmd=["/beszel", "health --url http://0.0.0.0:8090"]
+HealthStartPeriod=5s
+HealthInterval=120s
+
+#Label=homepage.group=System
+#Label=homepage.name=Beszel
+#Label=homepage.icon=beszel.png
+#Label=homepage.href=http://192.168.60.139:8090
+#Label=homepage.description=Monitoring
+#Label=homepage.statusStyle=dot
+#Label=homepage.widgets[0].type=beszel
+#Label=homepage.widgets[0].url=http://192.168.60.139:8090
+#Label=homepage.widgets[0].username=${BESZEL_USERNAME1}
+#Label=homepage.widgets[0].password=${BESZEL_PASSWORD1}
+#Label=homepage.widgets[0].systemId=${BESZEL_SYSTEMID1}
+#Label=homepage.widgets[0].version=2
+#Label=homepage.widgets[0].fields=["name", "status", "memory", "disk"]
+#Label=homepage.widgets[1].type=beszel
+#Label=homepage.widgets[1].url=http://192.168.60.139:8090
+#Label=homepage.widgets[1].username=${BESZEL_USERNAME2}
+#Label=homepage.widgets[1].password=${BESZEL_PASSWORD2}
+#Label=homepage.widgets[1].systemId=${BESZEL_SYSTEMID2}
+#Label=homepage.widgets[1].version=2
+#Label=homepage.widgets[1].fields=["name", "status", "memory", "disk"]
+#Label=homepage.showStats=false
 
 [Service]
-Restart=on-failure
+Restart=always
+EnvironmentFile=%h/apps/beszel/beszel.env
 
 [Install]
 WantedBy=default.target

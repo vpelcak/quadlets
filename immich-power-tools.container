@@ -11,7 +11,6 @@ AutoUpdate=registry
 Environment=DB_HOST=${IMMICH_DB_HOST} # Postgres Host (IP address or hostname of the database)
 Environment=DB_PORT=${IMMICH_DB_PORT} # Postgres Port number (Default: 5432)
 
-
 Environment=IMMICH_API_KEY=${IMMICH_API_KEY}
 Environment=IMMICH_URL=${IMMICH_URL}
 
@@ -23,12 +22,13 @@ PublishPort=8005:3000
 
 Timezone=Europe/Prague
 
-Label=homepage.group="Media Management"
+Label=homepage.group="Media"
 Label=homepage.name="Immich Power Tools"
 Label=homepage.icon=sh-immich-power-tools
 Label=homepage.href=http://192.168.60.139:8005
 Label=homepage.description="Home Album - Power Tools"
 Label=homepage.statusStyle=dot
+Label=homepage.weight=1
 Label=homepage.showStats=false
 
 Label=glance.parent=immich

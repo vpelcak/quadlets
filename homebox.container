@@ -1,14 +1,14 @@
 [Unit]
 Description=HomeBox
-After=network-online.target
 
 [Container]
 ContainerName=homebox
-Image=ghcr.io/sysadminsmedia/homebox:latest
+Image=ghcr.io/sysadminsmedia/homebox:latest-rootless
 AutoUpdate=registry
+EnvironmentFile=%h/apps/homebox/homebox.env
 
 PublishPort=3100:7745
-Volume=%h/apps/homebox:/data:Z
+Volume=%h/apps/homebox:/data/:z
 
 Network=podman
 IP=10.88.0.20
@@ -17,10 +17,25 @@ Timezone=Europe/Prague
 
 Environment=HBOX_LOG_LEVEL=info
 Environment=HBOX_LOG_FORMAT=text
-Environment=HBOX_WEB_MAX_UPLOAD_SIZE=10
+Environment=HBOX_WEB_MAX_FILE_UPLOAD=10
+Environment=HBOX_OPTIONS_ALLOW_ANALYTICS=true
+
+Label=homepage.group=Services
+Label=homepage.name=Homebox
+Label=homepage.icon=sh-homebox-light
+Label=homepage.href=http://192.168.60.139:3100
+Label=homepage.description="Home Inventory"
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=homebox
+Label=homepage.widget.url=http://192.168.60.139:3100
+Label=homepage.widget.username=${HOMEBOX_USER}
+Label=homepage.widget.password=${HOMEBOX_PASSWORD}
+#Label=homepage.widget.fields=["items", "locations"]
+Label=homepage.showStats=false
 
 [Service]
 Restart=on-failure
+EnvironmentFile=%h/apps/homebox/homebox.env
 
 [Install]
 WantedBy=default.target

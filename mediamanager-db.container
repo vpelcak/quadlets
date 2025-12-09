@@ -1,0 +1,29 @@
+[Unit]
+Description=MediaManager Database
+
+[Container]
+Pod=mediamanager.pod
+ContainerName=mediamanager-db
+Image=docker.io/postgres:18
+AutoUpdate=registry
+EnvironmentFile=%h/apps/mediamanager/mediamanager.env
+
+Environment=POSTGRES_PASSWORD=${MEDIAMANAGER_POSTGRES_PASSWORD}
+Environment=POSTGRES_USER=${MEDIAMANAGER_POSTGRES_USER}
+Environment=POSTGRES_DB=${MEDIAMANAGER_POSTGRES_DB}
+
+Volume=/etc/localtime:/etc/localtime:ro
+
+HealthCmd=pg_isready --dbname='${MEDIAMANAGER_POSTGRES_DB}' --username='${MEDIAMANAGER_POSTGRES_USER}' || exit 1; Chksum="$$(psql --dbname='${MEDIAMANAGER_POSTGRES_DB}' --username='${MEDIAMANAGER_POSTGRES_USER}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
+
+Volume=%h/apps/mediamanager/db:/var/lib/postgresql:z
+
+Timezone=Europe/Prague
+
+[Service]
+EnvironmentFile=%h/apps/mediamanager/mediamanager.env
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

@@ -1,0 +1,32 @@
+[Unit]
+Description=Local Content Share
+
+[Container]
+ContainerName=local-content-share
+Image=docker.io/tanq16/local-content-share:main
+AutoUpdate=registry
+
+Network=podman
+IP=10.88.0.67
+HostName=local-content-share
+PublishPort=8083:8080
+
+
+Volume=%h/apps/lcshare:/app/data:z
+
+Timezone=Europe/Prague
+
+Label=homepage.group=Services
+Label=homepage.name="Local Content Share"
+Label=homepage.icon=sh-localsend-light
+Label=homepage.href=http://192.168.60.139:8083
+Label=homepage.description="Content Sharing"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

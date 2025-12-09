@@ -1,0 +1,37 @@
+[Unit]
+Description=Manage indexers
+After=local-fs.target
+
+[Container]
+ContainerName=prowlarr
+EnvironmentFile=%h/apps/prowlarr/prowlarr.env
+Image=lscr.io/linuxserver/prowlarr:latest
+
+Volume=%h/apps/prowlarr:/config:Z
+#Volume=/var/mnt/media:/data:z
+
+Network=podman
+IP=10.88.0.14
+PublishPort=9696:9696
+
+Environment=PUID=0
+Environment=PGID=0
+Environment=TZ=Europe/Prague
+
+Label=homepage.group=Media
+Label=homepage.name=Prowlarr
+Label=homepage.icon=prowlarr.png
+Label=homepage.href=http://192.168.60.139:9696
+Label=homepage.description=Manage indexers
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=prowlarr
+Label=homepage.widget.url=http://192.168.60.139:9696
+Label=homepage.widget.key=${PROWLARR_API_KEY}
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+EnvironmentFile=%h/apps/prowlarr/prowlarr.env
+
+[Install]
+WantedBy=default.target

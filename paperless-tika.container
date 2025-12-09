@@ -1,6 +1,5 @@
 [Unit]
 Description=Paperless Tika
-After=network-online.target
 
 [Container]
 Pod=paperless.pod

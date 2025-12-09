@@ -1,0 +1,46 @@
+[Unit]
+Description=Cup
+
+[Container]
+ContainerName=cup
+Image=ghcr.io/sergi0g/cup:latest
+PublishPort=8957:8000
+AutoUpdate=registry
+Network=podman
+IP=10.88.0.80
+
+Exec=-c /config/cup.json serve -p 8000
+
+Timezone=Europe/Prague
+
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+
+SecurityLabelDisable=true
+
+Volume=%h/apps/cup/config/cup.json:/config/cup.json:z
+
+Label=homepage.group=System
+Label=homepage.name=Cup
+Label=homepage.icon=sh-cup-updates-light
+Label=homepage.href=http://192.168.60.139:8957
+Label=homepage.weight=0
+Label=homepage.description="Checks for container updates"
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=customapi
+Label=homepage.widget.url=http://192.168.60.139:8957/api/v3/json
+Label=homepage.widget.mappings[0].label=Monitoring
+Label=homepage.widget.mappings[0].field.metrics=monitored_images
+Label=homepage.widget.mappings[0].format=number
+Label=homepage.widget.mappings[1].label="Up to date"
+Label=homepage.widget.mappings[1].field.metrics=up_to_date
+Label=homepage.widget.mappings[1].format=number
+Label=homepage.widget.mappings[2].label=Updates
+Label=homepage.widget.mappings[2].field.metrics=updates_available
+Label=homepage.widget.mappings[2].format=number
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

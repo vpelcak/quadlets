@@ -1,6 +1,5 @@
 [Unit]
-Description=beszel agent
-After=network-online.target
+Description=Beszel Agent
 
 [Container]
 Pod=beszel.pod
@@ -12,14 +11,23 @@ Network=host
 
 Timezone=Europe/Prague
 
-Environment=PORT=45876
-Environment=KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH7CURgltFvPyQMszb4iO7YUwZVC9mZKE2fi4cnWuAEx"
 Environment=DOCKER_HOST="unix:///run/user/1000/podman/podman.sock"
-
 Volume=/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro
 
-Volume=/:/extra-filesystems/nvme0:ro
-Volume=/home/vpelcak/SSD:/extra-filesystems/sda:ro
+#Volume=%h/apps/beszel/beszel_socket:/beszel_socket
+Volume=%h/apps/beszel/beszel_agent_data:/var/lib/beszel-agent:z
+
+Environment=LISTEN=/beszel_socket/beszel.sock
+#Environment=LISTEN=45876
+Environment=KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINLWXieLOZ/OvGodh8POM0zbujIyh8bZg+iumqbPmkla"
+Environment=TOKEN="aac5-826046ec7-10c0c-591a24cbf"
+Environment=HUB_URL=http://192.168.60.139:8090
+
+Environment=DOCKER_HOST="unix:///run/user/1000/podman/podman.sock"
+
+HealthCmd=["/agent", "health"]
+HealthStartPeriod=5s
+HealthInterval=120s
 
 [Service]
 Restart=on-failure

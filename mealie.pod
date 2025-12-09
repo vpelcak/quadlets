@@ -1,0 +1,5 @@
+[Pod]
+Network=podman
+IP=10.88.0.21
+PodName=mealie
+PublishPort=9925:9000

@@ -1,0 +1,5 @@
+[Pod]
+Network=podman
+IP=10.88.0.91
+PodName=kitchenowl
+PublishPort=9926:80

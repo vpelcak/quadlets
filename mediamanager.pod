@@ -1,0 +1,7 @@
+[Pod]
+Network=podman
+IP=10.88.0.92
+PodName=mediamanager
+PublishPort=3009:3000
+PublishPort=8010:8000
+#PublishPort=5434:5432

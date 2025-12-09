@@ -1,7 +1,6 @@
 [Unit]
 Description=Paperless Webserver
 Requires=paperless-broker.service paperless-db.service
-After=network-online.target
 
 [Container]
 Pod=paperless.pod
@@ -22,6 +21,18 @@ Environment=PAPERLESS_DBHOST=${PAPERLESS_INTERNAL_HOST}
 Environment=PAPERLESS_TIKA_ENABLED=1
 Environment=PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://${PAPERLESS_INTERNAL_HOST}:3000
 Environment=PAPERLESS_TIKA_ENDPOINT=http://${PAPERLESS_INTERNAL_HOST}:9998
+
+Label=homepage.group=Services
+Label=homepage.name=Paperless
+Label=homepage.icon=sh-paperless-ngx-light
+Label=homepage.href=http://192.168.60.139:8040
+Label=homepage.description="Document Management"
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=paperlessngx
+Label=homepage.widget.url=http://192.168.60.139:8040
+Label=homepage.widget.username=${PAPERLESS_ADMIN_USER}
+Label=homepage.widget.password=${PAPERLESS_ADMIN_PASSWORD}
+Label=homepage.showStats=false
 
 [Service]
 EnvironmentFile=%h/apps/paperless/paperless.env

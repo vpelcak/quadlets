@@ -1,0 +1,29 @@
+[Unit]
+Description=Reactflux
+
+[Container]
+ContainerName=reactflux
+Image=docker.io/electh/reactflux
+AutoUpdate=registry
+
+Network=podman
+IP=10.88.0.64
+HostName=reactflux
+PublishPort=2000:2000
+
+Timezone=Europe/Prague
+
+Label=homepage.group=Services
+Label=homepage.name=Reactflux
+Label=homepage.icon=sh-reactflux-light
+Label=homepage.href=http://192.168.60.139:2000
+Label=homepage.description="Miniflux Frontend"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

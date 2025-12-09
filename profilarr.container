@@ -1,0 +1,30 @@
+[Unit]
+Description=Profile Manager
+After=local-fs.target
+
+[Container]
+ContainerName=profilarr
+Image=docker.io/santiagosayshey/profilarr:latest
+
+Volume=%h/apps/profilarr:/config:Z
+
+Network=podman
+IP=10.88.0.101
+
+Environment=TZ=Europe/Prague
+PublishPort=6868:6868
+
+Label=homepage.group=Media
+Label=homepage.name=Profilarr
+Label=homepage.icon=sh-configarr-light
+Label=homepage.href=http://192.168.60.139:6868
+Label=homepage.description="Profile Manager"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

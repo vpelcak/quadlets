@@ -1,12 +1,11 @@
 [Unit]
 Description=Paperless Gotenberg
 Requires=paperless-broker.service paperless-db.service
-After=network-online.target
 
 [Container]
 Pod=paperless.pod
 ContainerName=paperless-gotenberg
-Image=docker.io/thecodingmachine/gotenberg:8
+Image=docker.io/thecodingmachine/gotenberg:8.25
 EnvironmentFile=%h/apps/paperless/paperless.env
 
 Exec=gotenberg --chromium-disable-javascript=true --chromium-allow-list=file:///tmp/.*

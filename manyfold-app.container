@@ -1,0 +1,49 @@
+[Unit]
+Description=Manyfold app
+Requires=manyfold-valkey.service manyfold-db.service
+
+[Container]
+Pod=manyfold.pod
+ContainerName=manyfold-webserver
+Image=ghcr.io/manyfold3d/manyfold:latest
+EnvironmentFile=%h/apps/manyfold/manyfold.env
+AutoUpdate=registry
+
+Volume=%h/apps/manyfold/models:/models:z
+
+Timezone=Europe/Prague
+
+Environment=DATABASE_ADAPTER=postgresql
+Environment=REDIS_URL=redis://${MANYFOLD_HOST}:6379/1
+Environment=DATABASE_HOST=${MANYFOLD_HOST}
+Environment=DATABASE_PORT=5432
+Environment=DATABASE_NAME=${MANYFOLD_DB_NAME}
+Environment=DATABASE_USER=${MANYFOLD_USER}
+Environment=DATABASE_PASSWORD=${MANYFOLD_DB_PASSWORD}
+Environment=SECRET_KEY_BASE=${MANYFOLD_KEY}
+Environment=PUID=0
+Environment=PGID=0
+
+NoNewPrivileges=true
+DropCapability=ALL
+AddCapability=CHOWN
+AddCapability=DAC_OVERRIDE
+AddCapability=SETUID
+AddCapability=SETGID
+
+Label=homepage.group="Media"
+Label=homepage.name=Manyfold
+Label=homepage.icon=sh-manyfold
+Label=homepage.href=http://192.168.60.139:3214
+Label=homepage.description="3D Model Management"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+EnvironmentFile=%h/apps/manyfold/manyfold.env
+ExecStartPre=sleep 15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

@@ -1,11 +1,13 @@
 [Unit]
 Description=Miniflux Database
-After=network-online.target
+StartLimitBurst=5
+StartLimitIntervalSec=90
 
 [Container]
 Pod=miniflux.pod
 ContainerName=miniflux-db
-Image=docker.io/postgres:17-alpine
+Image=docker.io/postgres:18
+#-alpine
 
 AutoUpdate=registry
 
@@ -17,11 +19,11 @@ Environment=POSTGRES_DB=${MINIFLUX_POSTGRES_DATABASE}
 
 HealthCmd=pg_isready --dbname='${MINIFLUX_POSTGRES_DATABASE}' --username='${MINIFLUX_POSTGRES_USER}' || exit 1; Chksum="$$(psql --dbname='${MINIFLUX_POSTGRES_DATABASE}' --username='${MINIFLUX_POSTGRES_USER}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
 
-Volume=%h/apps/miniflux/db:/var/lib/postgresql/data:Z
+Volume=%h/apps/miniflux/db:/var/lib/postgresql:Z
 
-Timezone=Europe/Prague
+#Timezone=Europe/Prague
 
 [Service]
 EnvironmentFile=%h/apps/miniflux/miniflux.env
 Restart=always
-TimeoutStartSec=300
+RestartSec=2

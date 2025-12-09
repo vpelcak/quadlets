@@ -1,0 +1,33 @@
+[Unit]
+Description=Changedetection
+
+[Container]
+ContainerName=changedetection
+Image=docker.io/dgtlmoon/changedetection.io
+
+AutoUpdate=registry
+
+Network=podman
+IP=10.88.0.63
+
+PublishPort=5001:5000
+Volume=%h/apps/changedetection/datastore:/datastore:z
+
+Timezone=Europe/Prague
+
+Label=homepage.group=System
+Label=homepage.name=Changedetection
+Label=homepage.icon=sh-changedetection-light
+Label=homepage.href=http://192.168.60.139:5001
+Label=homepage.description="Page Change Detection"
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=changedetectionio
+Label=homepage.widget.url=http://192.168.60.139:5001
+Label=homepage.widget.key=69d7523706e41443dd1df3b51160dc4f
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

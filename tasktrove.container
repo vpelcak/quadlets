@@ -1,0 +1,31 @@
+[Unit]
+Description=TaskTrove
+
+[Container]
+ContainerName=tasktrove
+Image=ghcr.io/dohsimpson/tasktrove:latest
+AutoUpdate=registry
+
+Volume=%h/apps/tasktrove:/app/data:Z
+
+Network=podman
+IP=10.88.0.114
+HostName=tasktrove
+PublishPort=3010:3000
+
+Timezone=Europe/Prague
+
+Label=homepage.group=Services
+Label=homepage.name=TaskTrove
+Label=homepage.icon=sh-nextcloud-tasks-light
+Label=homepage.href=http://192.168.60.139:3010
+Label=homepage.description="Task Management"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

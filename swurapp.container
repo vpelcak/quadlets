@@ -1,0 +1,34 @@
+[Unit]
+Description=Block Shows Download Prior Release
+After=local-fs.target
+
+[Container]
+ContainerName=swurapp
+Image=docker.io/owlcaribou/swurapp:latest
+EnvironmentFile=%h/apps/sonarr/sonarr.env
+
+Environment=PUID=0
+Environment=PGID=0
+Environment=TZ=Europe/Prague
+Environment=API_KEY=${SONARR_API_KEY}
+Environment=BASE_URL=http://192.168.60.139:8989
+Environment=IGNORE_TAG_NAME=ignore
+Environment=DELAY_IN_MINUTES=60
+
+Network=podman
+IP=10.88.0.95
+
+Label=homepage.group=Media
+Label=homepage.name=SwurApp
+Label=homepage.icon=sh-sonarr-radarr-light
+Label=homepage.description="ABlock Shows Download Prior Release"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+EnvironmentFile=%h/apps/sonarr/sonarr.env
+
+[Install]
+WantedBy=default.target

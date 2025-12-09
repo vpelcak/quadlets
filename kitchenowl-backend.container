@@ -1,0 +1,20 @@
+[Unit]
+Description=Kitchenowl Backend
+
+[Container]
+Pod=kitchenowl.pod
+ContainerName=kitchenowl-backend
+Image=docker.io/tombursch/kitchenowl-backend:latest
+
+AutoUpdate=registry
+
+EnvironmentFile=%h/apps/kitchenowl/kitchenowl.env
+
+Environment=JWT_SECRET_KEY=${KITCHENOWL_SECRET_KEY}
+Volume=%h/apps/kitchenowl/data:/data:Z
+
+Timezone=Europe/Prague
+
+[Service]
+EnvironmentFile=%h/apps/kitchenowl/kitchenowl.env
+Restart=always

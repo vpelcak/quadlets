@@ -1,0 +1,25 @@
+[Unit]
+Description=Mealie Database
+
+[Container]
+Pod=mealie.pod
+ContainerName=mealie-db
+Image=docker.io/postgres:18
+AutoUpdate=registry
+EnvironmentFile=%h/apps/mealie/mealie.env
+
+Environment=POSTGRES_PASSWORD=${MEALIE_PG_PASSWORD}
+Environment=POSTGRES_USER=${MEALIE_PG_USER}
+Environment=POSTGRES_DB=${MEALIE_DB}
+Environment=PGUSER=${MEALIE_PG_USER}
+
+HealthCmd=pg_isready --dbname='${POSTGRES_DB}' --username='${POSTGRES_USER}' || exit 1; Chksum="$$(psql --dbname='${POSTGRES_DB}' --username='${POSTGRES_USER}' --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
+
+Volume=%h/apps/mealie/db:/var/lib/postgresql:z
+
+Timezone=Europe/Prague
+
+[Service]
+EnvironmentFile=%h/apps/mealie/mealie.env
+Restart=always
+TimeoutStartSec=300

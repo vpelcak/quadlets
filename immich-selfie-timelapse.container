@@ -1,0 +1,35 @@
+[Unit]
+Description=Immich Selfie Timelapse
+
+[Container]
+ContainerName=immich-selfie-timelapse
+Image=docker.io/arnaudcayrol/immich-selfie-timelapse
+AutoUpdate=registry
+EnvironmentFile=%h/apps/immich/immich.env
+
+PublishPort=5000:5000
+Volume=%h/apps/immich-selfie-timelapse:/app/output:Z
+
+Network=podman
+IP=10.88.0.59
+
+Timezone=Europe/Prague
+
+Environment=IMMICH_API_KEY=${IMMICH_API_KEY}
+Environment=IMMICH_BASE_URL=${IMMICH_URL}/api
+
+Label=homepage.group="Media"
+Label=homepage.name="Immich Selfie Timelapse"
+Label=homepage.icon=immich-kiosk.png
+Label=homepage.href=http://192.168.60.139:5000
+Label=homepage.description="Timelapse image generation"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=on-failure
+EnvironmentFile=%h/apps/immich/immich.env
+
+[Install]
+WantedBy=default.target

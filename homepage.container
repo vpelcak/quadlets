@@ -1,30 +1,39 @@
 [Unit]
 Description=Homepage Dashboard
-After=network-online.target
+After=local-fs.target
+Requires=podman.socket
+After=podman.socket
 
 [Container]
 ContainerName=homepage
 Image=ghcr.io/gethomepage/homepage:latest
 AutoUpdate=registry
+Timezone=Europe/Prague
 
-PublishPort=3000:3000
-Volume=%h/apps/homepage:/app/config:Z
-Volume=%h/apps/homepage/images:/app/public/images:Z
-Volume=/%t/podman/podman.sock:/run/podman/podman.sock:ro,z
+#UserNS=keep-id:uid=1000,gid=1000
 
-Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
-SecurityLabelDisable=true
+Environment=PUID=0
+Environment=PGID=0
 
 Network=podman
 IP=10.88.0.2
+PublishPort=3000:3000
+HostName=homepage
+
+Volume=%h/apps/homepage:/app/config:Z
+Volume=%h/apps/homepage/icons:/app/public/icons:Z
+Volume=/%t/podman/podman.sock:/var/run/docker.sock:ro
+#Volume=/var/run/docker.sock:/run/user/1000/podman/podman.sock:ro
+#Volume=/%t/podman/podman.sock:/run/user/1000/podman/podman.sock:ro
 
 SecurityLabelDisable=true
 
-Timezone=Europe/Prague
+#Environment=LOG_LEVEL=debug
+Environment=HOMEPAGE_ALLOWED_HOSTS=192.168.60.139:3000,home.web.pelcak.org
 
 [Service]
 Restart=on-failure
-TimeoutStartSec=900
+TimeoutStartSec=300
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target default.target

@@ -1,0 +1,30 @@
+[Unit]
+Description=Flaresolverr
+
+[Container]
+ContainerName=flaresolverr
+Image=ghcr.io/flaresolverr/flaresolverr:latest
+PublishPort=8191:8191
+AutoUpdate=registry
+Network=podman
+IP=10.88.0.81
+
+Environment=LOG_LEVEL=info
+Environment=LOG_HTML=false
+Environment=CAPTCHA_SOLVER=none
+Environment=TZ=Europe/Prague
+
+Label=homepage.group=Media
+Label=homepage.name=Flaresolverr
+Label=homepage.icon=flaresolverr.png
+Label=homepage.href=http://192.168.60.139:8191
+Label=homepage.weight=1
+Label=homepage.description="Helps with CloudFlare protection"
+Label=homepage.statusStyle=dot
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

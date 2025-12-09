@@ -1,6 +1,5 @@
 [Unit]
 Description=Glance
-After=network-online.target
 
 [Container]
 ContainerName=glance
@@ -13,8 +12,19 @@ IP=10.88.0.13
 
 Timezone=Europe/Prague
 
-Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+#Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+Volume=/%t/podman/podman.sock:/var/run/docker.sock:ro
 SecurityLabelDisable=true
+
+
+Label=homepage.group=Services
+Label=homepage.name=Glance
+Label=homepage.icon=sh-glance-light
+Label=homepage.href=http://192.168.60.139:8955
+Label=homepage.description="Glance on the Web"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
 
 [Service]
 Restart=always

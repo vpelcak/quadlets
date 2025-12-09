@@ -5,8 +5,7 @@ Requires=karakeep-web.service
 [Container]
 Pod=karakeep.pod
 ContainerName=karakeep-meilisearch
-#Image=docker.io/getmeili/meilisearch:v1.11.1
-Image=docker.io/getmeili/meilisearch:latest
+Image=docker.io/getmeili/meilisearch:v1.26
 AutoUpdate=registry
 
 EnvironmentFile=%h/apps/karakeep/karakeep.env

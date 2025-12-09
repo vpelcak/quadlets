@@ -1,6 +1,5 @@
 [Unit]
 Description=Ntfy.sh
-After=network-online.target
 
 [Container]
 ContainerName=ntfy
@@ -13,10 +12,33 @@ IP=10.88.0.7
 HostName=ntfy
 PublishPort=8000:80
 Volume=%h/apps/ntfy/etc:/etc/ntfy:z
-Volume=%h/apps/ntfy/cache:/var/cache/ntfy:z
-Volume=%h/apps/ntfy/db:/var/lib/ntfy:z
+Volume=%h/apps/ntfy/cache:/var/cache/ntfy:Z
+Volume=%h/apps/ntfy/db:/var/lib/ntfy:Z
 
 Timezone=Europe/Prague
+
+HealthCmd=["CMD-SHELL", "wget -q --tries=1 http://localhost:80/v1/health -O - | grep -Eo '\"healthy\"\\s*:\\s*true' || exit 1"]
+HealthStartPeriod=40s
+HealthInterval=60s
+HealthTimeout=10s
+HealthRetries=3
+Notify=healthy
+
+Label=homepage.group=System
+Label=homepage.name=Ntfy
+Label=homepage.icon=ntfy.png
+Label=homepage.href=http://192.168.60.139:8000
+Label=homepage.description=Notifications
+Label=homepage.statusStyle=dot
+Label=homepage.widget.type=customapi
+Label=homepage.widget.url=http://192.168.60.139:8000/v1/stats
+Label=homepage.widget.mappings[0].field=messages
+Label=homepage.widget.mappings[0].label=Messages
+Label=homepage.widget.mappings[0].format=number
+Label=homepage.widget.mappings[1].field=messages_rate
+Label=homepage.widget.mappings[1].label=Messages/s
+Label=homepage.widget.mappings[1].format=number
+Label=homepage.showStats=false
 
 [Service]
 Restart=always

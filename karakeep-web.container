@@ -24,10 +24,15 @@ Label=homepage.href=http://192.168.60.139:3005
 Label=homepage.description="Selfhosted Pocket"
 Label=homepage.statusStyle=dot
 Label=homepage.showStats=false
+Label=homepage.widget.type=karakeep
+Label=homepage.widget.url=http://192.168.60.139:3005
+Label=homepage.widget.key=${KARAKEEP_API}
+Label=homepage.showStats=false
 
 [Service]
 Restart=always
 TimeoutStartSec=300
+EnvironmentFile=%h/apps/karakeep/karakeep.env
 
 [Install]
 WantedBy=multi-user.target default.target

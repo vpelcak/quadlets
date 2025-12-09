@@ -1,5 +1,0 @@
-[Pod]
-Network=podman
-IP=10.88.0.27
-PodName=vikunja
-PublishPort=3456:3456

@@ -1,11 +1,11 @@
 [Unit]
 Description=Paperless Redis
-After=network-online.target
 
 [Container]
 Pod=paperless.pod
 ContainerName=paperless-broker
-Image=docker.io/library/redis:7
+#Image=docker.io/library/redis:8
+Image=docker.io/valkey/valkey:9
 AutoUpdate=registry
 
 HealthCmd=["/usr/local/bin/redis-cli", "ping"]
@@ -15,7 +15,7 @@ HealthTimeout=5s
 HealthRetries=5
 Notify=healthy
 
-Volume=%h/apps/paperless/redis/data:/data:Z
+Volume=%h/apps/paperless/valkey/data:/data:Z
 
 Timezone=Europe/Prague
 

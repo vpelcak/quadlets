@@ -1,0 +1,37 @@
+[Unit]
+Description=Automate TV shows
+After=local-fs.target
+
+[Container]
+ContainerName=sickgear
+
+Environment=PUID=0
+Environment=PGID=0
+Environment=TZ=Europe/Prague
+
+Image=lscr.io/linuxserver/sickgear:latest
+
+Volume=%h/apps/sickgear/data:/data:Z
+Volume=/var/mnt/media/Serialy:/tv:z
+Volume=/var/mnt/media/Vecernicky:/tales:z
+Volume=/var/mnt/media/Temporary/Downloads:/incoming:z
+
+Network=podman
+IP=10.88.0.70
+
+PublishPort=8098:8081
+
+Label=homepage.group=Media
+Label=homepage.name=Sickgear
+Label=homepage.icon=sickgear.png
+Label=homepage.href=http://192.168.60.139:8098
+Label=homepage.description=Automate TV shows
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

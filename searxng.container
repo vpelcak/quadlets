@@ -1,0 +1,37 @@
+[Unit]
+Description=searxng
+#Requires=searxng-valkey.service
+
+[Container]
+#Pod=searxng.pod
+ContainerName=searxngweb
+Image=docker.io/searxng/searxng:latest
+AutoUpdate=registry
+EnvironmentFile=%h/apps/searxng/searxng.env
+
+Network=podman
+IP=10.88.0.18
+#PodName=searxng
+PublishPort=8888:8080
+
+Volume=%h/apps/searxng:/etc/searxng:z
+
+Environment=SEARXNG_BASE_URL=${BASE_URL}
+
+Timezone=Europe/Prague
+
+Label=homepage.group=Services
+Label=homepage.name=SearXNG
+Label=homepage.icon=searxng.png
+Label=homepage.href=http://192.168.60.139:8888
+Label=homepage.description="Search the Web"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target default.target

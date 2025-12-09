@@ -1,0 +1,22 @@
+[Unit]
+Description=Loggifly
+
+[Container]
+ContainerName=loggifly
+Image=ghcr.io/clemcer/loggifly:latest
+AutoUpdate=registry
+
+UserNS=keep-id:uid=1000,gid=1000
+Volume=/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro
+Environment=DOCKER_HOST=unix:///run/user/1000/podman/podman.sock
+SecurityLabelDisable=true
+
+Volume=%h/apps/loggifly/config.yaml:/config/config.yaml:z
+
+Timezone=Europe/Prague
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

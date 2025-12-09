@@ -1,0 +1,46 @@
+[Unit]
+Description=Immich Mediakit
+Requires=imkit-qdrant.service
+
+[Container]
+Pod=imkit.pod
+ContainerName=imkit-app
+Image=docker.io/razgrizhsu/immich-mediakit:latest
+EnvironmentFile=%h/apps/imkit/imkit.env
+AutoUpdate=registry
+
+Environment=PUID=0
+Environment=PGID=0
+Environment=TZ=Europe/Prague
+
+HealthCmd=["sh -c curl -f http://192.168.60.139:8087}/ || exit 1"]
+HealthStartPeriod=40s
+HealthInterval=30s
+HealthTimeout=10s
+HealthRetries=3
+Notify=healthy
+
+Volume=%h/apps/imkit:/app/data:Z
+Volume=%h/apps/imkit/cache:/root/.cache/torch/:Z
+Volume=%h/Pictures/Library:/immich:ro
+
+#Environment=IMMICH_PATH=/home/vpelcak/Pictures/Library
+Environment=DASH_DEBUG=${DASH_DEBUG:-false}
+
+Timezone=Europe/Prague
+
+Label=homepage.group="Media"
+Label=homepage.name="Immich Mediakit"
+Label=homepage.icon=immich.png
+Label=homepage.href=http://192.168.60.139:8087
+Label=homepage.description="Immich Media tools"
+Label=homepage.statusStyle=dot
+Label=homepage.weight=1
+Label=homepage.showStats=false
+
+[Service]
+Restart=always
+EnvironmentFile=%h/apps/imkit/imkit.env
+
+[Install]
+WantedBy=multi-user.target default.target
